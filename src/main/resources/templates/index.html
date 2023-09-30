@@ -1,17 +1,15 @@
-<!doctype html>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-        name="viewport">
-  <meta content="ie=edge" http-equiv="X-UA-Compatible">
-  <title>Hotel de los Andes</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+  <title>Página Principal</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
 </head>
 <body>
-<h1>Hotel de los andes</h1>
-<div>
-  <a th:href="@{/examples}" class="btn btn-primary">Examples</a>
+<div class="container d-flex flex-column align-items-center justify-content-center vh-100">
+  <img alt="Logo" th:src="@{/images/logo.png}" class="img-fluid img-thumbnail rounded-circle" style="max-width: 300px;">
+  <h1 class="mt-3">Hotel de los Alpes</h1>
+  <a class="btn btn-primary mt-3" th:href="@{/servicios}">Servicios</a>
 </div>
 </body>
 </html>

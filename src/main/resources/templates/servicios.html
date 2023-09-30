@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Servicios</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+    <a class="btn btn-primary mb-3" href="/">Pagina Inicio</a>
+    <h1>Servicios</h1>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Capacidad</th>
+            <th>Tipo de Cobro</th>
+            <th>Cobro</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="servicio : ${servicios}">
+            <td th:text="${servicio.id}"></td>
+            <td th:text="${servicio.nombre}"></td>
+            <td th:text="${servicio.capacidad}"></td>
+            <td th:text="${servicio.tipoCobro}"></td>
+            <td th:text="${servicio.cobro}"></td>
+            <td>
+                <a class="btn btn-primary btn-sm" th:href="@{/servicios/{id}/edit(id=${servicio.id})}">Editar</a>
+                <a class="btn btn-danger btn-sm" th:href="@{/servicios/{id}/delete(id=${servicio.id})}">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Crear nuevo Servicio</h2>
+    <form method="post" th:action="@{/servicios/new/save}" th:object="${servicio}">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input class="form-control" id="nombre" name="nombre" required type="text">
+        </div>
+        <div class="form-group">
+            <label for="capacidad">Capacidad:</label>
+            <input class="form-control" id="capacidad" name="capacidad" required type="number">
+        </div>
+        <div class="form-group">
+            <label for="tipoCobro">Tipo de Cobro:</label>
+            <select class="form-control" id="tipoCobro" name="tipoCobro" required>
+                <option value="DIA">DIA</option>
+                <option value="HORA">HORA</option>
+                <option value="UNICO">ÚNICO</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="cobro">Cobro:</label>
+            <input class="form-control" id="cobro" name="cobro" required type="number">
+        </div>
+        <button class="btn btn-success" type="submit">Crear</button>
+    </form>
+</div>
+</body>
+</html>

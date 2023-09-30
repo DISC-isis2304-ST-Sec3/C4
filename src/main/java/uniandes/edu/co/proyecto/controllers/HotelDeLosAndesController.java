@@ -9,4 +9,9 @@ public class HotelDeLosAndesController {
   public String index() {
     return "index";
   }
+
+  @GetMapping("/error")
+  public String errorHandling() {
+    return "redirect:/";
+  }
 }
