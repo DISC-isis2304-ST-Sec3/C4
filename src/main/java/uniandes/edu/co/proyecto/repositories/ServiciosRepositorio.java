@@ -13,6 +13,13 @@ public interface ServiciosRepositorio extends JpaRepository<Servicio, Long> {
   @Query(value = "SELECT * FROM servicios", nativeQuery = true)
   Collection<Servicio> obtenerServicios();
 
+  @Query(value = "select * from servicios where id not in (" +
+      "    SELECT servicios.id" +
+      "    FROM servicios" +
+      "    INNER JOIN piscinas ON servicios.id = piscinas.id_servicio" +
+      ")", nativeQuery = true)
+  Collection<Servicio> obtenerServiciosDisponibles();
+
   @Query(value = "SELECT * FROM servicios WHERE id = :id", nativeQuery = true)
   Servicio obtenerServicio(@Param("id") Long id);
 
