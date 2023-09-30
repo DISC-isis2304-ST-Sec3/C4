@@ -18,4 +18,14 @@ public interface ExampleRepository extends JpaRepository<ExampleEntity, Long> {
   @Transactional
   @Query(value = "insert into examples (id, some_value) values (examples_sequence.nextval, :someValue)", nativeQuery = true)
   void createExample(@Param("someValue") String someValue);
+
+  @Modifying
+  @Transactional
+  @Query(value = "update examples set some_value = :someValue where id = :id", nativeQuery = true)
+  void updateExample(@Param("id") Long id, @Param("someValue") String someValue);
+
+  @Modifying
+  @Transactional
+  @Query(value = "delete from examples where id = :id", nativeQuery = true)
+  void deleteExample(@Param("id") Long id);
 }

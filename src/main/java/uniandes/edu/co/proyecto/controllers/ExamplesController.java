@@ -23,4 +23,16 @@ public class ExamplesController {
     exampleRepository.createExample(example.getSomeValue());
     return "redirect:index";
   }
+
+  @PutMapping("/{id}")
+  public String updateExample(@PathVariable(name = "id") Long id, @ModelAttribute ExampleEntity example) {
+    exampleRepository.updateExample(id, example.getSomeValue());
+    return "redirect:index";
+  }
+
+  @DeleteMapping("/{id}")
+  public String deleteExample(@PathVariable(name = "id") Long id) {
+    exampleRepository.deleteExample(id);
+    return "redirect:index";
+  }
 }
