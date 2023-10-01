@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uniandes.edu.co.proyecto.entities.Gimnasio;
 import uniandes.edu.co.proyecto.entities.Servicio;
-import uniandes.edu.co.proyecto.repositories.EquiposGimnasiosRepositorio;
 import uniandes.edu.co.proyecto.repositories.EquiposRepositorio;
 import uniandes.edu.co.proyecto.repositories.GimnasiosRepositorio;
 import uniandes.edu.co.proyecto.repositories.ServiciosRepositorio;
@@ -19,14 +18,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/gimnasios")
 public class ControladorGimnasios {
+  private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
   @Autowired
   private EquiposRepositorio equiposRepositorio;
   @Autowired
   private GimnasiosRepositorio gimnasiosRepositorio;
   @Autowired
   private ServiciosRepositorio serviciosRepositorio;
-
-  private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
   @GetMapping
   public String obtenerGimnasios(Model model) {

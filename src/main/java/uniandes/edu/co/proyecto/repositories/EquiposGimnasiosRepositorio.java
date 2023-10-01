@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import uniandes.edu.co.proyecto.entities.EquiposGimnasios;
-import uniandes.edu.co.proyecto.entities.EquiposGimnasios;
 
 import java.util.Collection;
 

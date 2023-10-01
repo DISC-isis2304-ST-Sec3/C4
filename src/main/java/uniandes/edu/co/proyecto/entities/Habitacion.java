@@ -6,13 +6,13 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "habitaciones")
 public class Habitacion {
- @Id
+  @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long idhabitacion;
 
   @OneToOne
   @JoinColumn(name = "idhotel", referencedColumnName = "idhotel", nullable = false)
-  private Hoteles hoteles;
+  private Hotel hotel;
 
   private String tipo;
   private int capacidad;
@@ -21,11 +21,11 @@ public class Habitacion {
   public Habitacion() {
   }
 
-  public Habitacion(String tipo, int capacidad, int costo, Hoteles hoteles) {
+  public Habitacion(String tipo, int capacidad, int costo, Hotel hotel) {
     this.tipo = tipo;
     this.capacidad = capacidad;
     this.costo = costo;
-    this.hoteles = hoteles;
+    this.hotel = hotel;
   }
 
   public Long getId() {
@@ -52,7 +52,7 @@ public class Habitacion {
     this.capacidad = capacidad;
   }
 
-   public Integer getCosto() {
+  public Integer getCosto() {
     return costo;
   }
 
@@ -60,11 +60,11 @@ public class Habitacion {
     this.costo = costo;
   }
 
-  public Hoteles getHoteles() {
-    return hoteles;
+  public Hotel getHoteles() {
+    return hotel;
   }
 
-  public void setHoteles(Hoteles hoteles) {
-    this.hoteles = hoteles;
+  public void setHoteles(Hotel hotel) {
+    this.hotel = hotel;
   }
 }

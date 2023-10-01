@@ -7,8 +7,8 @@ import uniandes.edu.co.proyecto.entities.Equipo;
 import uniandes.edu.co.proyecto.entities.EquiposSalones;
 import uniandes.edu.co.proyecto.entities.Salon;
 import uniandes.edu.co.proyecto.entities.primarykeys.EquiposSalonesPK;
-import uniandes.edu.co.proyecto.repositories.EquiposSalonesRepositorio;
 import uniandes.edu.co.proyecto.repositories.EquiposRepositorio;
+import uniandes.edu.co.proyecto.repositories.EquiposSalonesRepositorio;
 import uniandes.edu.co.proyecto.repositories.SalonesRepositorio;
 
 @Controller

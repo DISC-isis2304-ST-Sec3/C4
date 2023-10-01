@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import uniandes.edu.co.proyecto.entities.Hoteles;
+import uniandes.edu.co.proyecto.entities.Hotel;
 import uniandes.edu.co.proyecto.repositories.HotelesRepositorio;
 
 @Controller
@@ -21,14 +21,14 @@ public class ControladorHoteles {
   }
 
   @PostMapping("/new/save")
-  public String crearHotel(@ModelAttribute Hoteles hoteles) {
-    hotelesRepositorio.crearHotel(hoteles.getNombre(), hoteles.getEstrellas(), hoteles.getPais());
+  public String crearHotel(@ModelAttribute Hotel hotel) {
+    hotelesRepositorio.crearHotel(hotel.getNombre(), hotel.getEstrellas(), hotel.getPais());
 
     return "redirect:/hoteles";
   }
 
   @GetMapping("/{id}/edit")
-  public String actualizarHotelesForm(@PathVariable(name = "idhotel") long idhotel, Model model) {
+  public String actualizarHotelesForm(@PathVariable(name = "id") long idhotel, Model model) {
 
     model.addAttribute("hoteles", hotelesRepositorio.obtenerHoteles(idhotel));
 
@@ -36,8 +36,8 @@ public class ControladorHoteles {
   }
 
   @PostMapping("/{id}/edit/save")
-  public String actualizarHoteles(@PathVariable(name = "idhotel") long idhotel, @ModelAttribute Hoteles hoteles) {
-    hotelesRepositorio.actualizarHotel(idhotel, hoteles.getNombre(), hoteles.getEstrellas(), hoteles.getPais());
+  public String actualizarHoteles(@PathVariable(name = "id") long idhotel, @ModelAttribute Hotel hotel) {
+    hotelesRepositorio.actualizarHotel(idhotel, hotel.getNombre(), hotel.getEstrellas(), hotel.getPais());
 
     return "redirect:/hoteles";
   }

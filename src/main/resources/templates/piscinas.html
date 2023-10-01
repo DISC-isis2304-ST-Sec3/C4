@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Piscinas</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+  <meta charset="UTF-8">
+  <title>Piscinas</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
 </head>
 <body>
 <div class="container mt-5">
-    <a class="btn btn-primary mb-3" href="/">Página de Inicio</a>
-    <h1>Piscinas</h1>
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-        <tr>
-            <th>ID</th>
-            <th>Profundidad</th>
-            <th>Horario de Apertura</th>
-            <th>Horario de Cierre</th>
-            <th>Servicio</th>
-            <th>Acción</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="piscina : ${piscinas}">
-            <td th:text="${piscina.id}"></td>
-            <td th:text="${piscina.profundidad}"></td>
-            <td th:text="${#dates.format(piscina.horarioAbre, 'HH:mm:ss')}"></td>
-            <td th:text="${#dates.format(piscina.horarioCierra, 'HH:mm:ss')}"></td>
-            <td th:text="${piscina.servicio.nombre}"></td>
-            <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/piscinas/{id}/edit(id=${piscina.id})}">Editar</a>
-                <a class="btn btn-danger btn-sm" th:href="@{/piscinas/{id}/delete(id=${piscina.id})}">Eliminar</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+  <a class="btn btn-primary mb-3" href="/">Página de Inicio</a>
+  <h1>Piscinas</h1>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Profundidad</th>
+      <th>Horario de Apertura</th>
+      <th>Horario de Cierre</th>
+      <th>Servicio</th>
+      <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="piscina : ${piscinas}">
+      <td th:text="${piscina.id}"></td>
+      <td th:text="${piscina.profundidad}"></td>
+      <td th:text="${#dates.format(piscina.horarioAbre, 'HH:mm:ss')}"></td>
+      <td th:text="${#dates.format(piscina.horarioCierra, 'HH:mm:ss')}"></td>
+      <td th:text="${piscina.servicio.nombre}"></td>
+      <td>
+        <a class="btn btn-primary btn-sm" th:href="@{/piscinas/{id}/edit(id=${piscina.id})}">Editar</a>
+        <a class="btn btn-danger btn-sm" th:href="@{/piscinas/{id}/delete(id=${piscina.id})}">Eliminar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
-    <h2>Crear nueva Piscina</h2>
-    <form method="post" th:action="@{/piscinas/new/save}">
-        <div class="form-group">
-            <label for="profundidad">Profundidad:</label>
-            <input class="form-control" id="profundidad" name="profundidad" required type="number">
-        </div>
-        <div class="form-group">
-            <label for="horarioAbre">Horario de Apertura:</label>
-            <input class="form-control" id="horarioAbre" name="horarioAbre" required type="time">
-        </div>
-        <div class="form-group">
-            <label for="horarioCierra">Horario de Cierre:</label>
-            <input class="form-control" id="horarioCierra" name="horarioCierra" required type="time">
-        </div>
-        <div class="form-group">
-            <label for="servicio">Servicio:</label>
-            <select class="form-control" id="servicio" name="idServicio" required type="number">
-                <option th:each="servicio : ${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre}"></option>
-            </select>
-        </div>
-        <button class="btn btn-success" type="submit">Crear</button>
-    </form>
+  <h2>Crear nueva Piscina</h2>
+  <form method="post" th:action="@{/piscinas/new/save}">
+    <div class="form-group">
+      <label for="profundidad">Profundidad:</label>
+      <input class="form-control" id="profundidad" name="profundidad" required type="number">
+    </div>
+    <div class="form-group">
+      <label for="horarioAbre">Horario de Apertura:</label>
+      <input class="form-control" id="horarioAbre" name="horarioAbre" required type="time">
+    </div>
+    <div class="form-group">
+      <label for="horarioCierra">Horario de Cierre:</label>
+      <input class="form-control" id="horarioCierra" name="horarioCierra" required type="time">
+    </div>
+    <div class="form-group">
+      <label for="servicio">Servicio:</label>
+      <select class="form-control" id="servicio" name="idServicio" required type="number">
+        <option th:each="servicio : ${servicios}" th:text="${servicio.nombre}" th:value="${servicio.id}"></option>
+      </select>
+    </div>
+    <button class="btn btn-success" type="submit">Crear</button>
+  </form>
 </div>
 </body>
 </html>
