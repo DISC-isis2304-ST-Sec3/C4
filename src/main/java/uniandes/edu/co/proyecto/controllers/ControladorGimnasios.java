@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uniandes.edu.co.proyecto.entities.Gimnasio;
 import uniandes.edu.co.proyecto.entities.Servicio;
+import uniandes.edu.co.proyecto.repositories.EquiposRepositorio;
 import uniandes.edu.co.proyecto.repositories.GimnasiosRepositorio;
 import uniandes.edu.co.proyecto.repositories.ServiciosRepositorio;
 
@@ -17,12 +18,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/gimnasios")
 public class ControladorGimnasios {
+  private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+  @Autowired
+  private EquiposRepositorio equiposRepositorio;
   @Autowired
   private GimnasiosRepositorio gimnasiosRepositorio;
   @Autowired
   private ServiciosRepositorio serviciosRepositorio;
-
-  private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
   @GetMapping
   public String obtenerGimnasios(Model model) {
@@ -30,6 +32,15 @@ public class ControladorGimnasios {
     model.addAttribute("servicios", serviciosRepositorio.obtenerServiciosDisponibles());
 
     return "gimnasios";
+  }
+
+  @GetMapping("/{id}/equipos")
+  public String obtenerEquiposGimnasio(@PathVariable(name = "id") long id, Model model) {
+    model.addAttribute("gimnasio", gimnasiosRepositorio.obtenerGimnasio(id));
+    model.addAttribute("equipos_gimnasio", equiposRepositorio.obtenerEquiposGimnasio(id));
+    model.addAttribute("equipos_disponibles", equiposRepositorio.obtenerEquiposParaGimnasio(id));
+
+    return "equiposGimnasio";
   }
 
   @PostMapping("/new/save")

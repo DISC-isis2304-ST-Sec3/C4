@@ -2,8 +2,6 @@ package uniandes.edu.co.proyecto.entities;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "equipos")
 public class Equipo {

@@ -1,6 +1,5 @@
 package uniandes.edu.co.proyecto.controllers;
 
-import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,17 +13,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/piscinas")
 public class ControladorPiscina {
+  private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
   @Autowired
   private PiscinasRepositorio piscinasRepositorio;
   @Autowired
   private ServiciosRepositorio serviciosRepositorio;
-
-  private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
   @GetMapping
   public String obtenerPiscinas(Model model) {

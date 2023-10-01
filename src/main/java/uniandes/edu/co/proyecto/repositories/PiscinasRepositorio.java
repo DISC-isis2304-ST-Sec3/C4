@@ -26,7 +26,7 @@ public interface PiscinasRepositorio extends JpaRepository<Piscina, Long> {
       @Param("horarioAbre") Date horarioAbre,
       @Param("horarioCierra") Date horarioCierra,
       @Param("idServicio") long idServicio
-    );
+  );
 
   @Modifying
   @Transactional
@@ -39,7 +39,7 @@ public interface PiscinasRepositorio extends JpaRepository<Piscina, Long> {
       @Param("horarioAbre") Date horarioAbre,
       @Param("horarioCierra") Date horarioCierra,
       @Param("idServicio") long idServicio
-    );
+  );
 
   @Modifying
   @Transactional

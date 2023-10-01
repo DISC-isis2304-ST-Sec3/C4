@@ -11,7 +11,7 @@ import uniandes.edu.co.proyecto.repositories.DotacionesRepositorio;
 @Controller
 @RequestMapping("/dotaciones")
 public class ControladorDotaciones {
-    @Autowired
+  @Autowired
   private DotacionesRepositorio dotacionesRepositorio;
 
   @GetMapping
@@ -23,13 +23,13 @@ public class ControladorDotaciones {
 
   @PostMapping("/new/save")
   public String crearDotacion(@ModelAttribute Dotacion dotacion) {
-    dotacionesRepositorio.crearDotacion(dotacion.getNombre(), dotacion.getCantidad(), dotacion.getCostoAdicional());
+    dotacionesRepositorio.crearDotacion(dotacion.getNombre(), dotacion.getCantidad(), dotacion.getCostoadicional());
 
     return "redirect:/dotaciones";
   }
 
   @GetMapping("/{id}/edit")
-  public String actualizarDotacionesForm(@PathVariable(name = "iddotacion") long iddotacion, Model model) {
+  public String actualizarDotacionesForm(@PathVariable(name = "id") long iddotacion, Model model) {
 
     model.addAttribute("dotaciones", dotacionesRepositorio.obtenerDotacion(iddotacion));
 
@@ -37,14 +37,14 @@ public class ControladorDotaciones {
   }
 
   @PostMapping("/{id}/edit/save")
-  public String actualizarDotaciones(@PathVariable(name = "iddotacion") long iddotacion, @ModelAttribute Dotacion dotacion) {
-    dotacionesRepositorio.actualizarDotacion(iddotacion, dotacion.getNombre(), dotacion.getCantidad(), dotacion.getCostoAdicional());
+  public String actualizarDotaciones(@PathVariable(name = "id") long iddotacion, @ModelAttribute Dotacion dotacion) {
+    dotacionesRepositorio.actualizarDotacion(iddotacion, dotacion.getNombre(), dotacion.getCantidad(), dotacion.getCostoadicional());
 
     return "redirect:/dotaciones";
   }
 
   @GetMapping("/{id}/delete")
-  public String eliminarDotacion(@PathVariable(name = "iddotacion") long iddotacion) {
+  public String eliminarDotacion(@PathVariable(name = "id") long iddotacion) {
     dotacionesRepositorio.eliminarDotacion(iddotacion);
 
     return "redirect:/dotaciones";

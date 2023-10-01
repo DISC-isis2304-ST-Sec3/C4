@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Editar Dotacion</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+  <meta charset="UTF-8">
+  <title>Editar Dotacion</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
 </head>
 <body>
 <div class="container mt-5">
-    <a class="btn btn-primary mb-3" th:href="@{/dotaciones}">Volver a la Lista de Dotaciones</a>
-    <h1>Editar Dotacion</h1>
-    <form method="post" th:action="@{/dotaciones/{iddotacion}/edit/save(iddotacion=${dotaciones.iddotacion})}">
-        <input type="hidden" th:field="*{iddotacion}"/>
+  <a class="btn btn-primary mb-3" th:href="@{/dotaciones}">Volver a la Lista de Dotaciones</a>
+  <h1>Editar Dotacion</h1>
+  <form method="post" th:action="@{/dotaciones/{iddotacion}/edit/save(iddotacion=${dotaciones.id})}">
+    <input th:field="*{id}" type="hidden"/>
 
-        <div class="form-group">
-            <label for="nombre">Nombre:</label>
-            <input class="form-control" id="nombre" th:name="nombre" th:value="${dotaciones.nombre}"  required type="text">
-        </div>
-        <div class="form-group">
-            <label for="cantidad">Cantidad:</label>
-            <input class="form-control" id="cantidad" th:name="cantidad" th:value="${dotaciones.cantidad}"  required type="number">
-        </div>
-        <div class="form-group">
-            <label for="costoAdicional">CostoAdicional:</label>
-            <input class="form-control" id="costoAdicional" th:name="costoAdicional" th:value="${dotaciones.costoAdicional}" required type="number">
-        </div>
-        <button class="btn btn-success" type="submit">Guardar Cambios</button>
-    </form>
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input class="form-control" id="nombre" required th:name="nombre" th:value="${dotaciones.nombre}" type="text">
+    </div>
+    <div class="form-group">
+      <label for="cantidad">Cantidad:</label>
+      <input class="form-control" id="cantidad" required th:name="cantidad" th:value="${dotaciones.cantidad}"
+             type="number">
+    </div>
+    <div class="form-group">
+      <label for="costoAdicional">CostoAdicional:</label>
+      <input class="form-control" id="costoAdicional" required th:name="costoadicional"
+             th:value="${dotaciones.costoadicional}" type="number">
+    </div>
+    <button class="btn btn-success" type="submit">Guardar Cambios</button>
+  </form>
 </div>
 </body>
 </html>

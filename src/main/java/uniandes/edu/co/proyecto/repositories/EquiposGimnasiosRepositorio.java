@@ -6,17 +6,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import uniandes.edu.co.proyecto.entities.EquiposGimnasios;
-import uniandes.edu.co.proyecto.entities.EquiposGimnasios;
 
 import java.util.Collection;
 
 public interface EquiposGimnasiosRepositorio extends JpaRepository<EquiposGimnasios, Long> {
   @Query(value = "SELECT * FROM EQUIPOS_GIMNASIOS", nativeQuery = true)
   Collection<EquiposGimnasios> obtenerEquiposGimnasios();
-
-
-  @Query(value = "SELECT * FROM EQUIPOS_GIMNASIOS WHERE ID_GIMNASIO = :idGimnasio", nativeQuery = true)
-  Collection<EquiposGimnasios> obtenerEquiposGimnasio(@Param("idGimnasio") Long idGimnasio);
 
 
   @Query(value = "SELECT * FROM EQUIPOS_GIMNASIOS WHERE ID_EQUIPO = :idEquipo", nativeQuery = true)

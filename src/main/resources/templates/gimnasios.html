@@ -1,56 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Gimnasios</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+  <meta charset="UTF-8">
+  <title>Gimnasios</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
 </head>
 <body>
 <div class="container mt-5">
-    <a class="btn btn-primary mb-3" href="/">Página de Inicio</a>
-    <h1>Gimnasios</h1>
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-        <tr>
-            <th>ID</th>
-            <th>Horario de Apertura</th>
-            <th>Horario de Cierre</th>
-            <th>Servicio</th>
-            <th>Acción</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="gimnasio : ${gimnasios}">
-            <td th:text="${gimnasio.id}"></td>
-            <td th:text="${#dates.format(gimnasio.horarioAbre, 'HH:mm:ss')}"></td>
-            <td th:text="${#dates.format(gimnasio.horarioCierra, 'HH:mm:ss')}"></td>
-            <td th:text="${gimnasio.servicio.nombre}"></td>
-            <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/gimnasios/{id}/edit(id=${gimnasio.id})}">Editar</a>
-                <a class="btn btn-danger btn-sm" th:href="@{/gimnasios/{id}/delete(id=${gimnasio.id})}">Eliminar</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+  <a class="btn btn-primary mb-3" href="/">Página de Inicio</a>
+  <h1>Gimnasios</h1>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Horario de Apertura</th>
+      <th>Horario de Cierre</th>
+      <th>Servicio</th>
+      <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="gimnasio : ${gimnasios}">
+      <td th:text="${gimnasio.id}"></td>
+      <td th:text="${#dates.format(gimnasio.horarioAbre, 'HH:mm:ss')}"></td>
+      <td th:text="${#dates.format(gimnasio.horarioCierra, 'HH:mm:ss')}"></td>
+      <td th:text="${gimnasio.servicio.nombre}"></td>
+      <td>
+        <a class="btn btn-primary btn-sm" th:href="@{/gimnasios/{id}/equipos(id=${gimnasio.id})}">Equipos</a>
+        <a class="btn btn-primary btn-sm" th:href="@{/gimnasios/{id}/edit(id=${gimnasio.id})}">Editar</a>
+        <a class="btn btn-danger btn-sm" th:href="@{/gimnasios/{id}/delete(id=${gimnasio.id})}">Eliminar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
-    <h2>Crear nuevo Gimnasio</h2>
-    <form method="post" th:action="@{/gimnasios/new/save}">
-        <div class="form-group">
-            <label for="horarioAbre">Horario de Apertura:</label>
-            <input class="form-control" id="horarioAbre" name="horarioAbre" required type="time">
-        </div>
-        <div class="form-group">
-            <label for="horarioCierra">Horario de Cierre:</label>
-            <input class="form-control" id="horarioCierra" name="horarioCierra" required type="time">
-        </div>
-        <div class="form-group">
-            <label for="servicio">Servicio:</label>
-            <select class="form-control" id="servicio" name="idServicio" required type="number">
-                <option th:each="servicio : ${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre}"></option>
-            </select>
-        </div>
-        <button class="btn btn-success" type="submit">Crear</button>
-    </form>
+  <h2>Crear nuevo Gimnasio</h2>
+  <form method="post" th:action="@{/gimnasios/new/save}">
+    <div class="form-group">
+      <label for="horarioAbre">Horario de Apertura:</label>
+      <input class="form-control" id="horarioAbre" name="horarioAbre" required type="time">
+    </div>
+    <div class="form-group">
+      <label for="horarioCierra">Horario de Cierre:</label>
+      <input class="form-control" id="horarioCierra" name="horarioCierra" required type="time">
+    </div>
+    <div class="form-group">
+      <label for="servicio">Servicio:</label>
+      <select class="form-control" id="servicio" name="idServicio" required type="number">
+        <option th:each="servicio : ${servicios}" th:text="${servicio.nombre}" th:value="${servicio.id}"></option>
+      </select>
+    </div>
+    <button class="btn btn-success" type="submit">Crear</button>
+  </form>
 </div>
 </body>
 </html>
