@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uniandes.edu.co.proyecto.entities.Equipo;
 import uniandes.edu.co.proyecto.entities.EquiposGimnasios;
-import uniandes.edu.co.proyecto.entities.EquiposSalones;
 import uniandes.edu.co.proyecto.entities.Gimnasio;
 import uniandes.edu.co.proyecto.entities.primarykeys.EquiposGimnasioPK;
 import uniandes.edu.co.proyecto.repositories.EquiposGimnasiosRepositorio;
