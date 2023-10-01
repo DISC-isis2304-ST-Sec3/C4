@@ -33,7 +33,7 @@ public class ControladorDotaciones {
 
     model.addAttribute("dotaciones", dotacionesRepositorio.obtenerDotacion(iddotacion));
 
-    return "editarDotaciones";
+    return "editarDotacion";
   }
 
   @PostMapping("/{id}/edit/save")

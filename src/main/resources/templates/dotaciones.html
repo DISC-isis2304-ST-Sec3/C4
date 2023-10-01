@@ -26,8 +26,8 @@
             <td th:text="${dotaciones.cantidad}"></td>
             <td th:text="${dotaciones.costoAdicional}"></td>
             <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/dotaciones/{iddotacion}/edit(iddotacion=${hoteles.iddotacion})}">Editar</a>
-                <a class="btn btn-danger btn-sm" th:href="@{/dotaciones/{iddotacion}/delete(iddotacion=${hoteles.iddotacion})}">Eliminar</a>
+                <a class="btn btn-primary btn-sm" th:href="@{/dotaciones/{iddotacion}/edit(iddotacion=${dotaciones.iddotacion})}">Editar</a>
+                <a class="btn btn-danger btn-sm" th:href="@{/dotaciones/{iddotacion}/delete(iddotacion=${dotaciones.iddotacion})}">Eliminar</a>
             </td>
         </tr>
         </tbody>
