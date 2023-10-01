@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uniandes.edu.co.proyecto.entities.Salon;
+import uniandes.edu.co.proyecto.repositories.EquiposRepositorio;
 import uniandes.edu.co.proyecto.repositories.SalonesRepositorio;
 
 @Controller
@@ -12,6 +13,8 @@ import uniandes.edu.co.proyecto.repositories.SalonesRepositorio;
 public class ControladorSalones {
   @Autowired
   private SalonesRepositorio salonesRepositorio;
+  @Autowired
+  private EquiposRepositorio equiposRepositorio;
 
   @GetMapping
   public String obtenerSalones(Model model) {
@@ -25,6 +28,15 @@ public class ControladorSalones {
     salonesRepositorio.crearSalon(salon.getTipo(), salon.getCosto(), salon.getCapacidad());
 
     return "redirect:/salones";
+  }
+
+  @GetMapping("/{id}/equipos")
+  public String obtenerEquiposSalon(@PathVariable(name = "id") long id, Model model) {
+    model.addAttribute("salon", salonesRepositorio.obtenerSalon(id));
+    model.addAttribute("equipos_salon", equiposRepositorio.obtenerEquiposSalon(id));
+    model.addAttribute("equipos_disponibles", equiposRepositorio.obtenerEquiposParaSalon(id));
+
+    return "equiposSalon";
   }
 
   @GetMapping("/{id}/edit")

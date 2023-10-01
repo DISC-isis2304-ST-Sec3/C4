@@ -24,6 +24,12 @@ public interface EquiposRepositorio extends JpaRepository<Equipo, Long> {
   @Query(value = "SELECT * FROM EQUIPOS WHERE ID NOT IN (SELECT ID_EQUIPO FROM EQUIPOS_GIMNASIOS WHERE ID_GIMNASIO = :idGimnasio)", nativeQuery = true)
   Collection<Equipo> obtenerEquiposParaGimnasio(@Param("idGimnasio") Long idGimnasio);
 
+  @Query(value = "SELECT * FROM EQUIPOS WHERE ID IN (SELECT ID_EQUIPO FROM EQUIPOS_SALONES WHERE ID_SALON = :idSalon)", nativeQuery = true)
+  Collection<Equipo> obtenerEquiposSalon(@Param("idSalon") Long idSalon);
+
+  @Query(value = "SELECT * FROM EQUIPOS WHERE ID NOT IN (SELECT ID_EQUIPO FROM EQUIPOS_SALONES WHERE ID_SALON = :idSalon)", nativeQuery = true)
+  Collection<Equipo> obtenerEquiposParaSalon(@Param("idSalon") Long idSalon);
+
   @Modifying
   @Transactional
   @Query(value = "INSERT INTO EQUIPOS (ID, TIPO_EQUIPO, COSTO_ADICIONAL)" +

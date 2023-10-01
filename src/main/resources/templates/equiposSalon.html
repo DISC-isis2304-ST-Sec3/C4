@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Equipos de Salon</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+    <div class="container mt-5">
+        <a class="btn btn-primary mb-3" href="/salones">Volver a los salones</a>
+        <h1>Detalles del Salon</h1>
+        <p>ID: <span th:text="${salon.id}"></span></p>
+        <p>Capacidad: <span th:text="${salon.capacidad}"></span></p>
+        <p>Costo: <span th:text="${salon.costo}"></span></p>
+
+        <hr>
+
+        <h2>Equipos Asociados</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tipo de Equipo</th>
+                    <th>Quitar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="equipo : ${equipos_salon}">
+                    <td th:text="${equipo.tipoEquipo}"></td>
+                    <td>
+                        <a th:href="@{/equipossalones/{idSalon}/{idEquipo}/delete(idSalon=${salon.id},idEquipo=${equipo.id})}" class="btn btn-danger btn-sm">Quitar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2>Equipos Disponibles</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tipo de Equipo</th>
+                    <th>Agregar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="equipo : ${equipos_disponibles}">
+                    <td th:text="${equipo.tipoEquipo}"></td>
+                    <td>
+                        <form th:action="@{'/equipossalones/new/save'}" method="post">
+                            <input type="hidden" name="idSalon" th:value="${salon.id}" />
+                            <input type="hidden" name="idEquipo" th:value="${equipo.id}" />
+                            <button type="submit" class="btn btn-success btn-sm">Agregar</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
