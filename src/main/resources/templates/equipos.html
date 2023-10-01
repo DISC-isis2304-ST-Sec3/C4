@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Equipos</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+    <a class="btn btn-primary mb-3" href="/">Página de Inicio</a>
+    <h1>Equipos</h1>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Tipo de Equipo</th>
+            <th>Costo Adicional</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="equipo : ${equipos}">
+            <td th:text="${equipo.id}"></td>
+            <td th:text="${equipo.tipoEquipo}"></td>
+            <td th:text="${equipo.costoAdicional}"></td>
+            <td>
+                <a class="btn btn-primary btn-sm" th:href="@{/equipos/{id}/edit(id=${equipo.id})}">Editar</a>
+                <a class="btn btn-danger btn-sm" th:href="@{/equipos/{id}/delete(id=${equipo.id})}">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Crear nuevo Equipo</h2>
+    <form method="post" th:action="@{/equipos/new/save}" th:object="${equipo}">
+        <div class="form-group">
+            <label for="tipoEquipo">Tipo de Equipo:</label>
+            <input class="form-control" id="tipoEquipo" name="tipoEquipo" required>
+        </div>
+        <div class="form-group">
+            <label for="costoAdicional">Costo Adicional:</label>
+            <input class="form-control" id="costoAdicional" name="costoAdicional" required type="number">
+        </div>
+        <button class="btn btn-success" type="submit">Crear</button>
+    </form>
+</div>
+</body>
+</html>

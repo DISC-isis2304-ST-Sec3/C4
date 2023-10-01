@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Examples</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container">
+  <a class="btn btn-primary mb-3" href="/">Home</a>
+  <h1>Example List</h1>
+  <ul class="list-group">
+    <li class="list-group-item" th:each="example : ${examples}">
+      <span th:text="${example.id}"></span>: <span th:text="${example.someValue}"></span>
+    </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Salón</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+    <a class="btn btn-primary mb-3" th:href="@{/salones}">Volver a la Lista de Salones</a>
+    <h1>Editar Salón</h1>
+    <form method="post" th:action="@{/salones/{id}/edit/save(id=${salon.id})}">
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="form-group">
+            <label for="tipo">Tipo:</label>
+            <select class="form-control" id="tipo" th:name="tipo" required>
+                <option value="REUNIONES" th:selected="${salon.tipo == 'REUNIONES'}">REUNIONES</option>
+                <option value="CONFERENCIAS" th:selected="${salon.tipo == 'CONFERENCIAS'}">CONFERENCIAS</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="costo">Costo:</label>
+            <input class="form-control" id="costo" th:name="costo" th:value="${salon.costo}" required type="number">
+        </div>
+        <div class="form-group">
+            <label for="capacidad">Capacidad:</label>
+            <input class="form-control" id="capacidad" th:name="capacidad" th:value="${salon.capacidad}" required type="number">
+        </div>
+        <button class="btn btn-success" type="submit">Guardar Cambios</button>
+    </form>
+</div>
+</body>
+</html>

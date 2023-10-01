@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Equipo</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+    <a class="btn btn-primary mb-3" th:href="@{/equipos}">Volver a la Lista de Equipos</a>
+    <h1>Editar Equipo</h1>
+    <form method="post" th:action="@{/equipos/{id}/edit/save(id=${equipo.id})}">
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="form-group">
+            <label for="tipoEquipo">Tipo de Equipo:</label>
+            <input class="form-control" id="tipoEquipo" th:name="tipoEquipo" th:value="${equipo.tipoEquipo}" required>
+        </div>
+        <div class="form-group">
+            <label for="costoAdicional">Costo Adicional:</label>
+            <input class="form-control" id="costoAdicional" th:name="costoAdicional" th:value="${equipo.costoAdicional}" required type="number">
+        </div>
+        <button class="btn btn-success" type="submit">Guardar Cambios</button>
+    </form>
+</div>
+</body>
+</html>
