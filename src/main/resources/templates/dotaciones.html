@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dotaciones</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+    <a class="btn btn-primary mb-3" href="/">Pagina Inicio</a>
+    <h1>Dotaciones</h1>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>IDDOTACION</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>CostoAdicional</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dotaciones : ${dotaciones}">
+            <td th:text="${dotaciones.iddotacion}"></td>
+            <td th:text="${dotaciones.nombre}"></td>
+            <td th:text="${dotaciones.cantidad}"></td>
+            <td th:text="${dotaciones.costoAdicional}"></td>
+            <td>
+                <a class="btn btn-primary btn-sm" th:href="@{/dotaciones/{iddotacion}/edit(iddotacion=${hoteles.iddotacion})}">Editar</a>
+                <a class="btn btn-danger btn-sm" th:href="@{/dotaciones/{iddotacion}/delete(iddotacion=${hoteles.iddotacion})}">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Crear nueva Dotacion</h2>
+    <form method="post" th:action="@{/dotaciones/new/save}" th:object="${dotaciones}">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input class="form-control" id="nombre" name="nombre" required type="text">
+        </div>
+        <div class="form-group">
+            <label for="cantidad">Cantidad:</label>
+            <input class="form-control" id="cantidad" name="cantidad" required type="number">
+        </div>
+        <div class="form-group">
+            <label for="costoAdicional">CostoAdicional:</label>
+            <input class="form-control" id="costoAdicional" name="costoAdicional" required type="number">
+        </div>
+        <button class="btn btn-success" type="submit">Crear</button>
+    </form>
+</div>
+</body>
+</html>
