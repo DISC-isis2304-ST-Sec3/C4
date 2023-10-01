@@ -14,6 +14,9 @@ public interface PiscinasRepositorio extends JpaRepository<Piscina, Long> {
   @Query(value = "SELECT * FROM PISCINAS", nativeQuery = true)
   Collection<Piscina> obtenerPiscinas();
 
+  @Query(value = "SELECT * FROM PISCINAS WHERE ID = :id", nativeQuery = true)
+  Piscina obtenerPiscina(@Param("id") long id);
+
   @Modifying
   @Transactional
   @Query(value = "INSERT INTO PISCINAS (ID, PROFUNDIDAD, HORARIO_ABRE, HORARIO_CIERRA, ID_SERVICIO)" +
@@ -24,4 +27,22 @@ public interface PiscinasRepositorio extends JpaRepository<Piscina, Long> {
       @Param("horarioCierra") Date horarioCierra,
       @Param("idServicio") long idServicio
     );
+
+  @Modifying
+  @Transactional
+  @Query(value = "UPDATE PISCINAS " +
+      "SET PROFUNDIDAD = :profundidad, HORARIO_ABRE = :horarioAbre, HORARIO_CIERRA = :horarioCierra, ID_SERVICIO = :idServicio WHERE ID = :id"
+      , nativeQuery = true)
+  void actualizarPiscina(
+      @Param("id") long id,
+      @Param("profundidad") int profundidad,
+      @Param("horarioAbre") Date horarioAbre,
+      @Param("horarioCierra") Date horarioCierra,
+      @Param("idServicio") long idServicio
+    );
+
+  @Modifying
+  @Transactional
+  @Query(value = "DELETE FROM PISCINAS WHERE ID = :id", nativeQuery = true)
+  void eliminarPiscina(@Param("id") long id);
 }
