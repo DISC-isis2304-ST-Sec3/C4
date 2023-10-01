@@ -17,6 +17,10 @@ public interface ServiciosRepositorio extends JpaRepository<Servicio, Long> {
       "    SELECT servicios.id" +
       "    FROM servicios" +
       "    INNER JOIN piscinas ON servicios.id = piscinas.id_servicio" +
+      ") and id not in (" +
+      "    SELECT servicios.id" +
+      "    FROM servicios" +
+      "    INNER JOIN gimnasios ON servicios.id = gimnasios.id_servicio" +
       ")", nativeQuery = true)
   Collection<Servicio> obtenerServiciosDisponibles();
 

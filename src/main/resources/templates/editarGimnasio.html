@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Gimnasio</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+    <a class="btn btn-primary mb-3" th:href="@{/gimnasios}">Volver a la Lista de Gimnasios</a>
+    <h1>Editar Gimnasio</h1>
+    <form method="post" th:action="@{/gimnasios/{id}/edit/save(id=${gimnasio.id})}">
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="form-group">
+            <label for="horarioAbre">Horario de Apertura:</label>
+            <input class="form-control" id="horarioAbre" th:name="horarioAbre" th:value="${gimnasio.horarioAbre}" required type="time">
+        </div>
+        <div class="form-group">
+            <label for="horarioCierra">Horario de Cierre:</label>
+            <input class="form-control" id="horarioCierra" th:name="horarioCierra" th:value="${gimnasio.horarioCierra}" required type="time">
+        </div>
+        <div class="form-group">
+            <label for="servicio">Servicio:</label>
+            <select class="form-control" id="servicio" th:name="idServicio">
+                <option th:each="servicio : ${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre}" th:selected="${servicio.id == gimnasio.servicio.id}"></option>
+            </select>
+        </div>
+        <button class="btn btn-success" type="submit">Guardar Cambios</button>
+    </form>
+</div>
+</body>
+</html>
