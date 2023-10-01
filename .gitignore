@@ -47,6 +47,8 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+src/main/resources/aplication.properties
+
 ### IntellIj Idea
 .idea
 
