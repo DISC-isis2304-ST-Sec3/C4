@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Equipos de Gimnasio</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+    <div class="container mt-5">
+        <a class="btn btn-primary mb-3" href="/gimnasios">Volver a los gimnasios</a>
+        <h1>Detalles del Gimnasio</h1>
+        <p>ID del Gimnasio: <span th:text="${gimnasio.id}"></span></p>
+        <p>Horario de Apertura: <span th:text="${gimnasio.horarioAbre}"></span></p>
+        <p>Horario de Cierre: <span th:text="${gimnasio.horarioCierra}"></span></p>
+
+        <hr>
+
+        <h2>Equipos Asociados</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tipo de Equipo</th>
+                    <th>Quitar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="equipo : ${equipos_gimnasio}">
+                    <td th:text="${equipo.tipoEquipo}"></td>
+                    <td>
+                        <a th:href="@{/equiposgimnasios/{idGimnasio}/{idEquipo}/delete(idGimnasio=${gimnasio.id},idEquipo=${equipo.id})}" class="btn btn-danger btn-sm">Quitar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2>Equipos Disponibles</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tipo de Equipo</th>
+                    <th>Agregar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="equipo : ${equipos_disponibles}">
+                    <td th:text="${equipo.tipoEquipo}"></td>
+                    <td>
+                        <form th:action="@{'/equiposgimnasios/new/save'}" method="post">
+                            <input type="hidden" name="idGimnasio" th:value="${gimnasio.id}" />
+                            <input type="hidden" name="idEquipo" th:value="${equipo.id}" />
+                            <button type="submit" class="btn btn-success btn-sm">Agregar</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

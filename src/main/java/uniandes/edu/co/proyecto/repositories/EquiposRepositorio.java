@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import uniandes.edu.co.proyecto.entities.Equipo;
+import uniandes.edu.co.proyecto.entities.EquiposGimnasios;
 
 import java.util.Collection;
 
@@ -16,6 +17,12 @@ public interface EquiposRepositorio extends JpaRepository<Equipo, Long> {
 
   @Query(value = "SELECT * FROM EQUIPOS WHERE ID = :id", nativeQuery = true)
   Equipo obtenerEquipo(@Param("id") Long id);
+
+  @Query(value = "SELECT * FROM EQUIPOS WHERE ID IN (SELECT ID_EQUIPO FROM EQUIPOS_GIMNASIOS WHERE ID_GIMNASIO = :idGimnasio)", nativeQuery = true)
+  Collection<Equipo> obtenerEquiposGimnasio(@Param("idGimnasio") Long idGimnasio);
+
+  @Query(value = "SELECT * FROM EQUIPOS WHERE ID NOT IN (SELECT ID_EQUIPO FROM EQUIPOS_GIMNASIOS WHERE ID_GIMNASIO = :idGimnasio)", nativeQuery = true)
+  Collection<Equipo> obtenerEquiposParaGimnasio(@Param("idGimnasio") Long idGimnasio);
 
   @Modifying
   @Transactional
