@@ -5,20 +5,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import uniandes.edu.co.proyecto.entities.Hoteles;
+import uniandes.edu.co.proyecto.entities.Hotel;
 
 import java.util.Collection;
 
-public interface HotelesRepositorio extends JpaRepository<Hoteles, Long> {
+public interface HotelesRepositorio extends JpaRepository<Hotel, Long> {
   @Query(value = "SELECT * FROM HOTELES", nativeQuery = true)
-  Collection<Hoteles> obtenerHoteles();
+  Collection<Hotel> obtenerHoteles();
 
   @Query(value = "SELECT * FROM HOTELES WHERE IDHOTEL = :idhotel", nativeQuery = true)
-  Hoteles obtenerHoteles(@Param("idhotel") Long idhotel);
+  Hotel obtenerHoteles(@Param("idhotel") Long idhotel);
 
   @Modifying
   @Transactional
-  @Query(value = "INSERT INTO HOTELES (IDHOTELES, NOMBRE, ESTRELLAS, PAIS) VALUES (hoteles_sequence.nextval, :nombre, :estrellas, :pais)", nativeQuery = true)
+  @Query(value = "INSERT INTO HOTELES (IDHOTEL, NOMBRE, ESTRELLAS, PAIS) VALUES (hoteles_sequence.nextval, :nombre, :estrellas, :pais)", nativeQuery = true)
   void crearHotel(@Param("nombre") String nombre, @Param("estrellas") int estrellas, @Param("pais") String pais);
 
   @Modifying

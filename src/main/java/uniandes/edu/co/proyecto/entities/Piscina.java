@@ -8,7 +8,7 @@ import java.util.Date;
 @Table(name = "piscinas")
 public class Piscina {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   private int profundidad;

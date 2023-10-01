@@ -2,14 +2,9 @@ package uniandes.edu.co.proyecto.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import uniandes.edu.co.proyecto.entities.Equipo;
 import uniandes.edu.co.proyecto.entities.EquiposGimnasios;
-import uniandes.edu.co.proyecto.entities.EquiposSalones;
 import uniandes.edu.co.proyecto.entities.Gimnasio;
 import uniandes.edu.co.proyecto.entities.primarykeys.EquiposGimnasioPK;
 import uniandes.edu.co.proyecto.repositories.EquiposGimnasiosRepositorio;
@@ -26,13 +21,6 @@ public class ControladorEquiposGimnasios {
   @Autowired
   private EquiposGimnasiosRepositorio equiposGimnasiosRepositorio;
 
-  @GetMapping("/new")
-  public String equiposGimnasiosForm(Model model) {
-    model.addAttribute("equipos", equiposRepositorio.obtenerEquipos());
-    model.addAttribute("gimnasios", gimnasiosRepositorio.obtenerGimnasios());
-    return "equiposGimnasiosNuevo";
-  }
-
   @PostMapping("/new/save")
   public String relacionarEquiposGimnasios(@ModelAttribute(name = "idGimnasio") long idGimnasio, @ModelAttribute(name = "idEquipo") long idEquipo) {
     Gimnasio gimnasio = gimnasiosRepositorio.obtenerGimnasio(idGimnasio);
@@ -45,6 +33,13 @@ public class ControladorEquiposGimnasios {
         equiposGimnasio.getEquiposGimnasioPK().getEquipo().getId(), equiposGimnasio.getEquiposGimnasioPK().getGimnasio().getId()
     );
 
-    return "redirect:/equipos";
+    return String.format("redirect:/gimnasios/%s/equipos", idGimnasio);
+  }
+
+  @GetMapping("/{idGym}/{idEquipo}/delete")
+  public String eliminarRelacionEquipoGimnasio(@PathVariable(name = "idGym") long idGimnasio, @PathVariable(name = "idEquipo") long idEquipo) {
+    equiposGimnasiosRepositorio.eliminarRelacionEquipoConGimnasio(idEquipo, idGimnasio);
+
+    return String.format("redirect:/gimnasios/%s/equipos", idGimnasio);
   }
 }

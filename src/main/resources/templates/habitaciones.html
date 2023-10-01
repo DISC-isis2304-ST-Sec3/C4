@@ -1,62 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Habitaciones</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+  <meta charset="UTF-8">
+  <title>Habitaciones</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
 </head>
 <body>
 <div class="container mt-5">
-    <a class="btn btn-primary mb-3" href="/">Página de Inicio</a>
-    <h1>Habitaciones</h1>
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-        <tr>
-            <th>IDHABITACION</th>
-            <th>TIPO</th>
-            <th>CAPACIDAD</th>
-            <th>COSTO</th>
-            <th>Hoteles</th>
-            <th>Acción</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="habitacion : ${habitaciones}">
-            <td th:text="${habitacion.idhabitacion}"></td>
-            <td th:text="${habitacion.tipo}"></td>
-            <td th:text="${habitacion.capacidad}"></td>
-            <td th:text="${habitacion.costo}"></td>
-            <td th:text="${habitacion.hoteles.idhotel}"></td>
-            <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/habitaciones/{idhabitacion}/edit(idhabitacion=${habitacion.idhabitacion})}">Editar</a>
-                <a class="btn btn-danger btn-sm" th:href="@{/habitaciones/{idhabitacion}/delete(idhabitacion=${habitacion.idhabitacion})}">Eliminar</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+  <a class="btn btn-primary mb-3" href="/">Página de Inicio</a>
+  <h1>Habitaciones</h1>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th>IDHABITACION</th>
+      <th>TIPO</th>
+      <th>CAPACIDAD</th>
+      <th>COSTO</th>
+      <th>Hoteles</th>
+      <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="habitacion : ${habitaciones}">
+      <td th:text="${habitacion.id}"></td>
+      <td th:text="${habitacion.tipo}"></td>
+      <td th:text="${habitacion.capacidad}"></td>
+      <td th:text="${habitacion.costo}"></td>
+      <td th:text="${habitacion.hoteles.id}"></td>
+      <td>
+        <a class="btn btn-primary btn-sm"
+           th:href="@{/habitaciones/{idhabitacion}/edit(idhabitacion=${habitacion.id})}">Editar</a>
+        <a class="btn btn-danger btn-sm"
+           th:href="@{/habitaciones/{idhabitacion}/delete(idhabitacion=${habitacion.id})}">Eliminar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
-    <h2>Crear nuevo Habitacion</h2>
-    <form method="post" th:action="@{/habitaciones/new/save}">
-        <div class="form-group">
-            <label for="tipo">Tipo:</label>
-            <input class="form-control" id="tipo" name="tipo" required type="text">
-        </div>
-        <div class="form-group">
-            <label for="capacidad">Capacidad:</label>
-            <input class="form-control" id="capacidad" name="capacidad" required type="number">
-        </div>
-        <div class="form-group">
-            <label for="costo">Costo:</label>
-            <input class="form-control" id="costo" name="costo" required type="number">
-        </div>
-        <div class="form-group">
-            <label for="hoteles">Hoteles:</label>
-            <select class="form-control" id="hoteles" name="idhotel" required type="number">
-                <option th:each="hoteles : ${hoteles}" th:value="${hoteles.idhotel}" th:text="${servicio.idhotel}"></option>
-            </select>
-        </div>
-        <button class="btn btn-success" type="submit">Crear</button>
-    </form>
+  <h2>Crear nuevo Habitacion</h2>
+  <form method="post" th:action="@{/habitaciones/new/save}">
+    <div class="form-group">
+      <label for="tipo">Tipo:</label>
+      <input class="form-control" id="tipo" name="tipo" required type="text">
+    </div>
+    <div class="form-group">
+      <label for="capacidad">Capacidad:</label>
+      <input class="form-control" id="capacidad" name="capacidad" required type="number">
+    </div>
+    <div class="form-group">
+      <label for="costo">Costo:</label>
+      <input class="form-control" id="costo" name="costo" required type="number">
+    </div>
+    <div class="form-group">
+      <label for="hotel">Hoteles:</label>
+      <select class="form-control" id="hotel" name="idhotel" required type="number">
+        <option th:each="hotel : ${hoteles}" th:text="${hotel.nombre}" th:value="${hotel.id}"></option>
+      </select>
+    </div>
+    <button class="btn btn-success" type="submit">Crear</button>
+  </form>
 </div>
 </body>
 </html>
