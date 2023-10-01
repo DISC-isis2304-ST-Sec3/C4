@@ -15,10 +15,6 @@ public interface EquiposGimnasiosRepositorio extends JpaRepository<EquiposGimnas
   Collection<EquiposGimnasios> obtenerEquiposGimnasios();
 
 
-  @Query(value = "SELECT * FROM EQUIPOS_GIMNASIOS WHERE ID_GIMNASIO = :idGimnasio", nativeQuery = true)
-  Collection<EquiposGimnasios> obtenerEquiposGimnasio(@Param("idGimnasio") Long idGimnasio);
-
-
   @Query(value = "SELECT * FROM EQUIPOS_GIMNASIOS WHERE ID_EQUIPO = :idEquipo", nativeQuery = true)
   Collection<EquiposGimnasios> obtenerEquipoGimnasios(@Param("idEquipo") Long idEquipo);
 
