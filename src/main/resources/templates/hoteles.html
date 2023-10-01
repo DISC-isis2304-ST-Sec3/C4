@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoteles</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+    <a class="btn btn-primary mb-3" href="/">Pagina Inicio</a>
+    <h1>Hoteles</h1>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Estrellas</th>
+            <th>Pais</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="hoteles : ${hoteles}">
+            <td th:text="${hoteles.idhotel}"></td>
+            <td th:text="${hoteles.nombre}"></td>
+            <td th:text="${hoteles.estrellas}"></td>
+            <td th:text="${hoteles.pais}"></td>
+            <td>
+                <a class="btn btn-primary btn-sm" th:href="@{/hoteles/{id}/edit(id=${hoteles.id})}">Editar</a>
+                <a class="btn btn-danger btn-sm" th:href="@{/hoteles/{id}/delete(id=${hoteles.id})}">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Crear nuevo Hotel</h2>
+    <form method="post" th:action="@{/hoteles/new/save}" th:object="${hoteles}">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input class="form-control" id="nombre" name="nombre" required type="text">
+        </div>
+        <div class="form-group">
+            <label for="estrellas">Estrellas:</label>
+            <input class="form-control" id="estrellas" name="estrellas" required type="number">
+        </div>
+        <div class="form-group">
+            <label for="pais">Pais:</label>
+            <input class="form-control" id="pais" name="pais" required type="text">
+        </div>
+        <button class="btn btn-success" type="submit">Crear</button>
+    </form>
+</div>
+</body>
+</html>
