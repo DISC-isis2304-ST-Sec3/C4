@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuentas</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+  <a class="btn btn-primary mb-3" href="/">Pagina Inicio</a>
+  <h1>Cuentas</h1>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th>ID PAGO</th>
+      <th>Pagado</th>
+      <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cuenta : ${cuentas}">
+      <td th:text="${cuenta.id}"></td>
+      <td th:text="${cuenta.pagado}"></td>
+      <td>
+        <a class="btn btn-primary btn-sm"
+           th:href="@{/cuentas/{idpago}/edit(idpago=${cuenta.id})}">Editar</a>
+        <a class="btn btn-danger btn-sm"
+           th:href="@{/cuentas/{idpago}/delete(idpago=${cuenta.id})}">Eliminar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h2>Crear nueva Cuenta</h2>
+  <form method="post" th:action="@{/cuentas/new/save}" th:object="${cuentas}">
+    <div class="form-group">
+      <label for="pagado">Pagado:</label>
+      <input class="form-control" id="pagado" name="pagado" required type="text">
+    </div>
+    <button class="btn btn-success" type="submit">Crear</button>
+  </form>
+</div>
+</body>
+</html>

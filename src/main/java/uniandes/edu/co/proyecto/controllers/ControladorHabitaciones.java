@@ -10,8 +10,7 @@ import uniandes.edu.co.proyecto.repositories.HabitacionesRepositorio;
 import uniandes.edu.co.proyecto.repositories.HotelesRepositorio;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Controller
 @RequestMapping("/habitaciones")
@@ -24,6 +23,7 @@ public class ControladorHabitaciones {
   @GetMapping
   public String obtenerHabitaciones(Model model) {
     model.addAttribute("habitaciones", habitacionesRepositorio.obtenerHabitaciones());
+
     model.addAttribute("hoteles", hotelesRepositorio.obtenerHoteles());
 
     return "habitaciones";
@@ -69,6 +69,12 @@ public class ControladorHabitaciones {
   @GetMapping("/{id}/delete")
   public String eliminarHabitacion(@PathVariable(name = "id") Long idhabitacion) {
     habitacionesRepositorio.eliminarHabitacion(idhabitacion);
+    return "redirect:/habitaciones";
+  }
+
+  @GetMapping("/{tipos}/tipos")
+  public String obtenerTiposHabitaciones(@PathVariable(name = "tipos") String tipo) {
+    habitacionesRepositorio.obtenerTiposHabitaciones();
     return "redirect:/habitaciones";
   }
 }

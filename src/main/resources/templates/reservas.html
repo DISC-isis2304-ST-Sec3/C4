@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reservas</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+  <a class="btn btn-primary mb-3" href="/">Página de Inicio</a>
+  <h1>Reservas</h1>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th>IDRESERVA</th>
+      <th>INICIO</th>
+      <th>FIN</th>
+      <th>CANTIDADPERSONAS</th>
+      <th>Habitacion</th>
+      <th>Cuenta</th>
+      <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reserva : ${reservas}">
+      <td th:text="${reserva.id}"></td>
+      <td th:text="${reserva.inicio}"></td>
+      <td th:text="${reserva.fin}"></td>
+      <td th:text="${reserva.cantidadpersonas}"></td>
+      <td th:text="${reserva.habitacion.id}"></td>
+      <td th:text="${reserva.cuenta.id}"></td>
+      <td>
+        <a class="btn btn-primary btn-sm"
+           th:href="@{/reservas/{idreserva}/edit(idreserva=${reserva.id})}">Editar</a>
+        <a class="btn btn-danger btn-sm"
+           th:href="@{/reservas/{idreserva}/delete(idreserva=${reserva.id})}">Eliminar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h2>Crear nueva Reserva</h2>
+  <form method="post" th:action="@{/reservas/new/save}">
+    <div class="form-group">
+      <label for="inicio">Inicio:</label>
+      <input class="form-control" id="inicio" name="inicio" required type="date">
+    </div>
+    <div class="form-group">
+      <label for="fin">Fin:</label>
+      <input class="form-control" id="fin" name="fin" required type="date">
+    </div>
+    <div class="form-group">
+      <label for="cantidadpersonas">Cantidad de personas:</label>
+      <input class="form-control" id="cantidadpersonas" name="cantidadpersonas" required type="number">
+    </div>
+    <div class="form-group">
+      <label for="habitacion">Habitaciones:</label>
+      <select class="form-control" id="habitacion" name="idhabitacion" required type="number">
+        <option th:each="habitacion : ${habitaciones}" th:text="${habitacion.tipo}" th:value="${habitacion.id}"></option>
+      </select>
+    </div>
+    <div class="form-group">
+        <label for="cuenta">Cuentas:</label>
+        <select class="form-control" id="cuenta" name="idpago" required type="number">
+          <option th:each="cuenta : ${cuentas}" th:text="${cuenta.id}" th:value="${hotel.id}"></option>
+        </select>
+      </div>
+    <button class="btn btn-success" type="submit">Crear</button>
+  </form>
+</div>
+</body>
+</html>
