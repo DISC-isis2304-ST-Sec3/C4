@@ -73,7 +73,7 @@ public class ControladorHabitaciones {
   }
 
   @GetMapping("/{tipos}/tipos")
-  public String obtenerTiposHabitaciones(@PathVariable(name = "id") String tipo) {
+  public String obtenerTiposHabitaciones(@PathVariable(name = "tipos") String tipo) {
     habitacionesRepositorio.obtenerTiposHabitaciones();
     return "redirect:/habitaciones";
   }
