@@ -10,8 +10,7 @@ import uniandes.edu.co.proyecto.repositories.HabitacionesRepositorio;
 import uniandes.edu.co.proyecto.repositories.HotelesRepositorio;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Controller
 @RequestMapping("/habitaciones")
