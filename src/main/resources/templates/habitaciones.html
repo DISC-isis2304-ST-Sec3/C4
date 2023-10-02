@@ -32,6 +32,8 @@
            th:href="@{/habitaciones/{idhabitacion}/edit(idhabitacion=${habitacion.id})}">Editar</a>
         <a class="btn btn-danger btn-sm"
            th:href="@{/habitaciones/{idhabitacion}/delete(idhabitacion=${habitacion.id})}">Eliminar</a>
+        <a class="btn btn-primary btn-sm"
+           th:href="@{/habitaciones/{tipo}/tipos(tipo=${habitacion.tipos})}">TiposHabitaciones</a>
       </td>
     </tr>
     </tbody>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Cuenta</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+  <a class="btn btn-primary mb-3" th:href="@{/cuentas}">Volver a la Lista de Cuentas</a>
+  <h1>Editar Cuenta</h1>
+  <form method="post" th:action="@{/cuentas/{idpago}/edit/save(idpago=${cuentas.id})}">
+    <input th:field="*{id}" type="hidden"/>
+
+    <div class="form-group">
+      <label for="pagado">Pagado:</label>
+      <input class="form-control" id="pagado" required th:name="pagado" th:value="${cuentas.pagado}" type="text">
+    </div>
+    <button class="btn btn-success" type="submit">Guardar Cambios</button>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Registro</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+  <a class="btn btn-primary mb-3" th:href="@{/registros}">Volver a la Lista de Registros</a>
+  <h1>Editar Registro</h1>
+  <form method="post" th:action="@{/registros/{docpersona}/edit/save(docpersona=${registro.id})}">
+    <input th:field="*{id}" type="hidden"/>
+
+    <div class="form-group">
+      <label for="capacidad">Capacidad:</label>
+      <input class="form-control" id="capacidad" required th:name="capacidad" th:value="${habitacion.capacidad}"
+             type="number">
+    </div>
+    
+    <div class="form-group">
+      <label for="reserva">Reservas :</label>
+      <select class="form-control" id="reserva" th:name="idreserva">
+        <option th:each="reserva : ${reservas}" th:selected="${reserva.id == registro.reserva.id}" th:text="${reserva.id}"
+                th:value="${reserva.id}"></option>
+      </select>
+    </div>
+    <button class="btn btn-success" type="submit">Guardar Cambios</button>
+  </form>
+</div>
+</body>
+</html>

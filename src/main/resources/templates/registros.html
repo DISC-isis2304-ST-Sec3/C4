@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registros</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+  <a class="btn btn-primary mb-3" href="/">Página de Inicio</a>
+  <h1>Registros</h1>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th>DOCPERSONA</th>
+      <th>CAPACIDAD</th>
+      <th>Reserva</th>
+      <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="registro : ${registros}">
+      <td th:text="${registro.docpersona}"></td>
+      <td th:text="${registro.capacidad}"></td>
+      <td th:text="${registro.reservas.id}"></td>
+      <td>
+        <a class="btn btn-primary btn-sm"
+           th:href="@{/registros/{docpersona}/edit(docpersona=${registro.id})}">Editar</a>
+        <a class="btn btn-danger btn-sm"
+           th:href="@{/registros/{docpersona}/delete(docpersona=${registro.id})}">Eliminar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h2>Crear nuevo Registro</h2>
+  <form method="post" th:action="@{/registros/new/save}">
+    <div class="form-group">
+      <label for="docpersona">Documento Persona:</label>
+      <input class="form-control" id="docpersona" name="docpersona" required type="number">
+    </div>
+    <div class="form-group">
+      <label for="capacidad">Capacidad:</label>
+      <input class="form-control" id="capacidad" name="capacidad" required type="number">
+    </div>
+    <div class="form-group">
+      <label for="reserva">Reservas :</label>
+      <select class="form-control" id="reserva" name="idreserva" required type="number">
+        <option th:each="reserva : ${reservas}" th:text="${reserva.id}" th:value="${reserva.id}"></option>
+      </select>
+    </div>
+    <button class="btn btn-success" type="submit">Crear</button>
+  </form>
+</div>
+</body>
+</html>
