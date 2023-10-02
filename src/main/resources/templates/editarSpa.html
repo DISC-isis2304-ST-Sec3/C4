@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Spa</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+  <a class="btn btn-primary mb-3" th:href="@{/spas}">Volver a la Lista de Spas</a>
+  <h1>Editar Spa</h1>
+  <form method="post" th:action="@{/spas/{id}/edit/save(id=${spa.id})}">
+    <input th:field="*{id}" type="hidden"/>
+
+    <div class="form-group">
+      <label for="costo">Costo:</label>
+      <input class="form-control" id="costo" required th:name="costo" th:value="${spa.costo}" type="number">
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripción:</label>
+      <textarea class="form-control" id="descripcion" required th:name="descripcion" th:text="${spa.descripcion}"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="hotel">Hotel:</label>
+      <select class="form-control" id="hotel" th:name="idHotel" th:value="${spa.hotel.id}">
+        <option th:each="hotel : ${hoteles}" th:text="${hotel.nombre}" th:value="${hotel.id}"></option>
+      </select>
+    </div>
+    <button class="btn btn-success" type="submit">Guardar Cambios</button>
+  </form>
+</div>
+</body>
+</html>

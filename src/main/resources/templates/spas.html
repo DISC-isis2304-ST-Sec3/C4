@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spas</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+  <a class="btn btn-primary mb-3" href="/">Página de Inicio</a>
+  <h1 th:text="${hotelUnico ? 'Spas del hotel ' + idHotel : 'Spas'}">Spas</h1>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Costo</th>
+      <th>Descripción</th>
+      <th>Hotel</th>
+      <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="spa : ${spas}">
+      <td th:text="${spa.id}"></td>
+      <td th:text="${spa.costo}"></td>
+      <td th:text="${spa.descripcion}"></td>
+      <td th:text="${spa.hotel.nombre}"></td>
+      <td>
+        <a class="btn btn-primary btn-sm" th:href="@{/spas/{id}/edit(id=${spa.id})}">Editar</a>
+        <a class="btn btn-danger btn-sm" th:href="@{/spas/{id}/delete(id=${spa.id})}">Eliminar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <a th:if="${hotelUnico}" class="btn btn-primary mb-3" th:href="@{/spas}">Ver todos los Spas</a>
+
+  <h2>Crear nuevo Spa</h2>
+  <form method="post" th:action="@{/spas/new/save}">
+    <div class="form-group">
+      <label for="costo">Costo:</label>
+      <input class="form-control" id="costo" name="costo" required type="number">
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripción:</label>
+      <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="hotel">Hotel:</label>
+      <select class="form-control" id="hotel" name="idHotel" required type="number">
+        <option th:each="hotel : ${hoteles}" th:text="${hotel.id + ': ' + hotel.nombre}" th:value="${hotel.id}"></option>
+      </select>
+    </div>
+    <button class="btn btn-success" type="submit">Crear</button>
+  </form>
+</div>
+</body>
+</html>
