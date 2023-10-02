@@ -18,7 +18,7 @@ public interface HabitacionesRepositorio extends JpaRepository<Habitacion, Long>
   Habitacion obtenerHabitacion(@Param("idhabitacion") long idhabitacion);
 
   @Query(value = "SELECT DISTINCT TIPO FROM HABITACIONES", nativeQuery = true)
-  Collection<Habitacion> obtenerTiposHabitaciones();
+  Collection<String> obtenerTiposHabitaciones();
 
   @Modifying
   @Transactional
