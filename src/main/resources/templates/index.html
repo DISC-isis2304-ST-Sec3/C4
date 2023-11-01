@@ -2,52 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Página Principal</title>
+  <title>Hotel de los Alpes</title>
   <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+  <style>
+    .center-contents {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .logo {
+      max-width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+    }
+
+    .nav-bar {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-item {
+      margin: 5px;
+    }
+  </style>
 </head>
 <body>
-<div class="container d-flex flex-column align-items-center justify-content-center vh-100">
-  <img alt="Logo" class="img-fluid img-thumbnail rounded-circle" style="max-width: 300px;" th:src="@{/images/logo.png}">
+<div class="container center-contents">
+  <img alt="Logo" class="logo" th:src="@{/images/logo.png}">
   <h1 class="mt-3">Hotel de los Alpes</h1>
-  <ul class="nav">
+  <ul class="nav-bar">
     <li class="nav-item">
-      <a class="btn btn-primary mx-2" th:href="@{/servicios}">Servicios</a>
+      <a class="btn btn-primary" th:href="@{/servicios}">Servicios</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-primary mx-2" th:href="@{/piscinas}">Piscinas</a>
+      <a class="btn btn-primary" th:href="@{/piscinas}">Piscinas</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-primary mx-2" th:href="@{/gimnasios}">Gimnasios</a>
+      <a class="btn btn-primary" th:href="@{/gimnasios}">Gimnasios</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-primary mx-2" th:href="@{/salones}">Salones</a>
+      <a class="btn btn-primary" th:href="@{/salones}">Salones</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-primary mx-2" th:href="@{/equipos}">Equipos</a>
+      <a class="btn btn-primary" th:href="@{/equipos}">Equipos</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-primary mx-2" th:href="@{/spas}">Spas</a>
+      <a class="btn btn-primary" th:href="@{/spas}">Spas</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-primary mx-2" th:href="@{/reservasservicios}">Reservas servicios</a>
+      <a class="btn btn-primary" th:href="@{/reservasservicios}">Reservas servicios</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-primary mx-2" th:href="@{/hoteles}">Hoteles</a>
+      <a class="btn btn-primary" th:href="@{/hoteles}">Hoteles</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-primary mx-2" th:href="@{/habitaciones}">Habitaciones</a>
+      <a class="btn btn-primary" th:href="@{/habitaciones}">Habitaciones</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-primary mx-2" th:href="@{/dotaciones}">Dotaciones</a>
+      <a class="btn btn-primary" th:href="@{/dotaciones}">Dotaciones</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-primary mx-2" th:href="@{/cuentas}">Cuentas</a>
+      <a class="btn btn-primary" th:href="@{/cuentas}">Cuentas</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-primary mx-2" th:href="@{/reservas}">Reservas</a>
+      <a class="btn btn-primary" th:href="@{/reservas}">Reservas</a>
     </li>
     <li class="nav-item">
-      <a class="btn btn-primary mx-2" th:href="@{/registros}">Registros</a>
+      <a class="btn btn-primary" th:href="@{/registros}">Registros</a>
     </li>
   </ul>
 </div>
