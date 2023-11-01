@@ -14,6 +14,8 @@ public class ReservaServicio {
   @Temporal(TemporalType.TIMESTAMP)
   private Date horario;
 
+  private int duracion;
+
   @ManyToOne
   @JoinColumn(name = "id_salon", referencedColumnName = "id")
   private Salon salon;
@@ -25,8 +27,9 @@ public class ReservaServicio {
   public ReservaServicio() {
   }
 
-  public ReservaServicio(Date horario, Salon salon, Spa spa) {
+  public ReservaServicio(Date horario, int duracion, Salon salon, Spa spa) {
     this.horario = horario;
+    this.duracion = duracion;
     this.salon = salon;
     this.spa = spa;
   }
@@ -45,6 +48,14 @@ public class ReservaServicio {
 
   public void setHorario(Date horario) {
     this.horario = horario;
+  }
+
+  public int getDuracion() {
+    return duracion;
+  }
+
+  public void setDuracion(int duracion) {
+    this.duracion = duracion;
   }
 
   public Salon getSalon() {
