@@ -1,0 +1,61 @@
+-- Vacia la anterior información en las tablas.
+
+truncate table ADMINISTRATIVO;
+truncate table CUENTAS;
+truncate table DESCUENTO;
+truncate table DESCUENTOPLAN;
+truncate table DOTACIONES;
+truncate table EQUIPOS;
+truncate table EQUIPOS_GIMNASIOS;
+truncate table EQUIPOS_SALONES;
+truncate table GIMNASIOS;
+truncate table HABITACIONES;
+truncate table HDOTACIONES;
+truncate table HOTEL;
+truncate table HOTELES;
+truncate table PISCINAS;
+truncate table PLAN;
+truncate table PRODUCTO;
+truncate table PROMOCION;
+truncate table REGISTROS;
+truncate table RESERVA;
+truncate table RESERVAS;
+truncate table RESERVA_SERVICIOS;
+truncate table SALONES;
+truncate table SERVICIOS;
+truncate table SPAS;
+truncate table TIENDA;
+truncate table TIENDACONSUMIBLE;
+truncate table USUARIO;
+
+-- Elimina las tablas
+drop sequence hoteles_sequence;
+drop table ADMINISTRATIVO cascade constraints;
+drop table CUENTAS cascade constraints;
+drop table DESCUENTO cascade constraints;
+drop table DESCUENTOPLAN cascade constraints;
+drop table DOTACIONES cascade constraints;
+drop table EQUIPOS cascade constraints;
+drop table EQUIPOS_GIMNASIOS cascade constraints;
+drop table EQUIPOS_SALONES cascade constraints;
+drop table GIMNASIOS cascade constraints;
+drop table HABITACIONES cascade constraints;
+drop table HDOTACIONES cascade constraints;
+drop table HOTEL cascade constraints;
+drop table HOTELES cascade constraints;
+drop table PISCINAS cascade constraints;
+drop table PLAN cascade constraints;
+drop table PRODUCTO cascade constraints;
+drop table PROMOCION cascade constraints;
+drop table REGISTROS cascade constraints;
+drop table RESERVA cascade constraints;
+drop table RESERVAS cascade constraints;
+drop table RESERVA_SERVICIOS cascade constraints;
+drop table SALONES cascade constraints;
+drop table SERVICIOS cascade constraints;
+drop table SPAS cascade constraints;
+drop table TIENDA cascade constraints;
+drop table TIENDACONSUMIBLE cascade constraints;
+drop table USUARIO cascade constraints;
+
+commit;
