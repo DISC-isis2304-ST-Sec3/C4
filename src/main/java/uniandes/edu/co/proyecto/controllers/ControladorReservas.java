@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 @Controller
 @RequestMapping("/reservas")
 public class ControladorReservas {
-  private final SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/yyyy");
+  private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
   @Autowired
   private ReservasRepositorio reservasRepositorio;
   @Autowired

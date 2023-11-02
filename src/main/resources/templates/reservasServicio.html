@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservas de Servicios</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container mt-5">
+    <a class="btn btn-primary mb-3" href="/">Página de Inicio</a>
+    <h1>Reservas de Servicios</h1>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Horario</th>
+            <th>Duración</th>
+            <th>Spa</th>
+            <th>Salon</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reserva : ${reservas}">
+            <td th:text="${reserva.id}"></td>
+            <td th:text="${reserva.horario}"></td>
+            <td th:text="${reserva.duracion}"></td>
+            <td th:text="${reserva.spa != null ? reserva.spa.id : ''}"></td>
+            <td th:text="${reserva.salon != null ? reserva.salon.id : ''}"></td>
+            <td>
+                <a class="btn btn-primary btn-sm" th:href="@{/reservas/{id}/edit(id=${reserva.id})}">Editar</a>
+                <a class="btn btn-danger btn-sm" th:href="@{/reservas/{id}/delete(id=${reserva.id})}">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Crear nueva Reserva de Servicio</h2>
+    <form method="post" th:action="@{/reservas_servicios/new/save}">
+        <div class="form-group">
+            <label for="horario">Horario:</label>
+            <input class="form-control" id="horario" name="horario" required type="datetime-local">
+        </div>
+        <div class="form-group">
+            <label for="duracion">Duración:</label>
+            <input class="form-control" id="duracion" name="duracion" required type="number">
+        </div>
+        <div class="form-group">
+            <label for="spa">Spa:</label>
+            <select class="form-control" id="spa" name="idSpa">
+                <option value=""></option>
+                <option th:each="spa : ${spas}" th:text="${spa.id}" th:value="${spa.id}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="salon">Salon:</label>
+            <select class="form-control" id="salon" name="idSalon">
+                <option value=""></option>
+                <option th:each="salon : ${salones}" th:text="${salon.id}" th:value="${salon.id}"></option>
+            </select>
+        </div>
+        <button class="btn btn-success" type="submit">Crear</button>
+    </form>
+</div>
+</body>
+</html>

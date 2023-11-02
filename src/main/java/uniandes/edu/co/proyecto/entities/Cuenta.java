@@ -1,4 +1,5 @@
 package uniandes.edu.co.proyecto.entities;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -8,28 +9,28 @@ public class Cuenta {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long idpago;
   private String pagado;
-  
-public Cuenta() {
-}
 
-public Cuenta(String pagado) {
-  this.pagado = pagado;
-}
+  public Cuenta() {
+  }
 
-public Long getId() {
-  return idpago;
-}
+  public Cuenta(String pagado) {
+    this.pagado = pagado;
+  }
 
-public void setId(Long idpago) {
-  this.idpago = idpago;
-}
+  public Long getId() {
+    return idpago;
+  }
 
-public String getPagado() {
-  return pagado;
-}
+  public void setId(Long idpago) {
+    this.idpago = idpago;
+  }
 
-public void setPagado(String pagado) {
-  this.pagado = pagado;
-}
+  public String getPagado() {
+    return pagado;
+  }
+
+  public void setPagado(String pagado) {
+    this.pagado = pagado;
+  }
 
 }
