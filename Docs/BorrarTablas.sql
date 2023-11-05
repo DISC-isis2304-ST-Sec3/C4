@@ -11,7 +11,6 @@ drop table EQUIPOS_SALONES cascade constraints;
 drop table GIMNASIOS cascade constraints;
 drop table HABITACIONES cascade constraints;
 drop table HDOTACIONES cascade constraints;
-drop table HOTEL cascade constraints;
 drop table HOTELES cascade constraints;
 drop table PISCINAS cascade constraints;
 drop table PLAN cascade constraints;

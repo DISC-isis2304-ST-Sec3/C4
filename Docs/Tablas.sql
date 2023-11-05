@@ -1,8 +1,17 @@
 create sequence hoteles_sequence start with 1 increment by 1;
 
+CREATE TABLE hoteles (
+    idhotel   INTEGER NOT NULL,
+    nombre    VARCHAR2(255 byte) NOT NULL,
+    estrellas INTEGER NOT NULL,
+    pais      VARCHAR2(255 byte) NOT NULL);
+
+
+ALTER TABLE hoteles ADD CONSTRAINT hoteles_pk PRIMARY KEY ( idhotel );
+
 CREATE TABLE ADMINISTRATIVO (
     rol          VARCHAR2(40 CHAR) NOT NULL,
-    hotel_nombre VARCHAR2(50 CHAR) NOT NULL,
+    id_hotel integer NOT NULL,
     usuario_id   INTEGER NOT NULL
 );
 
@@ -27,14 +36,6 @@ CREATE TABLE descuentoplan (
 
 ALTER TABLE descuentoplan ADD CONSTRAINT descuentoplan_pk PRIMARY KEY ( plan_tipo,
                                                                         descuento_porcentaje );
-
-CREATE TABLE hotel (
-    nombre    VARCHAR2(50 CHAR) NOT NULL,
-    estrellas INTEGER NOT NULL,
-    pais      VARCHAR2(30 CHAR) NOT NULL
-);
-
-ALTER TABLE hotel ADD CONSTRAINT hotel_pk PRIMARY KEY ( nombre );
 
 CREATE TABLE plan (
     tipo                  VARCHAR2(50 CHAR) NOT NULL,
@@ -92,7 +93,7 @@ CREATE TABLE tienda (
     tipo                           VARCHAR2(20 CHAR) NOT NULL,
     nombre                         VARCHAR2(50 CHAR) NOT NULL,
     capacidad                      INTEGER NOT NULL,
-    hotel_nombre                   VARCHAR2(50 CHAR) NOT NULL,
+    id_hotel                   INTEGER NOT NULL,
     tiendaconsumible_tienda_nombre VARCHAR2(50 CHAR) NOT NULL
 );
 
@@ -126,8 +127,8 @@ CREATE TABLE usuario (
 ALTER TABLE usuario ADD CONSTRAINT usuario_pk PRIMARY KEY ( id );
 
 ALTER TABLE ADMINISTRATIVO
-    ADD CONSTRAINT adiministrativo_hotel_fk FOREIGN KEY ( hotel_nombre )
-        REFERENCES hotel ( nombre );
+    ADD CONSTRAINT adiministrativo_hotel_fk FOREIGN KEY ( id_hotel )
+        REFERENCES hoteles ( idhotel );
 
 ALTER TABLE ADMINISTRATIVO
     ADD CONSTRAINT adiministrativo_usuario_fk FOREIGN KEY ( usuario_id )
@@ -166,8 +167,8 @@ ALTER TABLE reserva
         REFERENCES usuario ( id );
 
 ALTER TABLE tienda
-    ADD CONSTRAINT tienda_hotel_fk FOREIGN KEY ( hotel_nombre )
-        REFERENCES hotel ( nombre );
+    ADD CONSTRAINT tienda_hotel_fk FOREIGN KEY ( id_hotel )
+        REFERENCES hoteles ( idhotel );
 
 ALTER TABLE tienda
     ADD CONSTRAINT tienda_tiendaconsumible_fk FOREIGN KEY ( tiendaconsumible_tienda_nombre )
@@ -180,14 +181,6 @@ ALTER TABLE tiendaconsumible
 ALTER TABLE usuario
     ADD CONSTRAINT usuario_adiministrativo_fk FOREIGN KEY ( adiministrativo_usuario_id )
         REFERENCES ADMINISTRATIVO ( usuario_id );
-
-CREATE TABLE hoteles (
-    idhotel   INTEGER NOT NULL,
-    nombre    VARCHAR2(255 byte) NOT NULL,
-    estrellas INTEGER NOT NULL,
-    pais      VARCHAR2(255 byte) NOT NULL);
-
-ALTER TABLE hoteles ADD CONSTRAINT hoteles_pk PRIMARY KEY ( idhotel );
 
 --CREACIÓN TABLA HABITACIONES
 CREATE TABLE habitaciones (
