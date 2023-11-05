@@ -23,7 +23,7 @@ public interface CuentasRepositorio extends JpaRepository<Cuenta, Long> {
 
   @Modifying
   @Transactional
-  @Query(value = "UPDATE CUENTAS SET PAGO = :pago and IDPAGO = :idpago", nativeQuery = true)
+  @Query(value = "UPDATE CUENTAS SET PAGADO = :pago and IDPAGO = :idpago", nativeQuery = true)
   void actualizarCuenta(@Param("idpago") long idpago, @Param("pago") String pago );
 
   @Modifying
