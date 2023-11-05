@@ -183,9 +183,9 @@ ALTER TABLE usuario
 
 CREATE TABLE hoteles (
     idhotel   INTEGER NOT NULL,
-    nombre    VARCHAR2(20) NOT NULL,
+    nombre    VARCHAR2(255 byte) NOT NULL,
     estrellas INTEGER NOT NULL,
-    pais      VARCHAR2(20) NOT NULL);
+    pais      VARCHAR2(255 byte) NOT NULL);
 
 ALTER TABLE hoteles ADD CONSTRAINT hoteles_pk PRIMARY KEY ( idhotel );
 

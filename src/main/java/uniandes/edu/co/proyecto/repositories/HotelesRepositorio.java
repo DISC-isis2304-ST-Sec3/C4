@@ -16,6 +16,9 @@ public interface HotelesRepositorio extends JpaRepository<Hotel, Long> {
   @Query(value = "SELECT * FROM HOTELES WHERE IDHOTEL = :idhotel", nativeQuery = true)
   Hotel obtenerHoteles(@Param("idhotel") Long idhotel);
 
+  @Query(value = "SELECT hoteles_sequence.currval from dual", nativeQuery = true)
+  long darUltimoId();
+
   @Modifying
   @Transactional
   @Query(value = "INSERT INTO HOTELES (IDHOTEL, NOMBRE, ESTRELLAS, PAIS) VALUES (hoteles_sequence.nextval, :nombre, :estrellas, :pais)", nativeQuery = true)
