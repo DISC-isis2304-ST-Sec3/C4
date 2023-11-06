@@ -1,5 +1,6 @@
 create index consumos_fecha_idx on consumos(fecha);
 create index reservas_fecha_idx on reservas(inicio);
+create index reservas_hab_idx on reservas(idhabitacion);
 
 -- REQ. 1
 select sum(consumos.costo) as coste_total, habitaciones.idhabitacion from consumos
@@ -10,19 +11,19 @@ group by habitaciones.idhabitacion
 order by coste_total;
 
 -- REQ. 2
-select servicios.id, count(consumos.id) as cantidad_consumos from servicios
+select servicios.id, servicios.nombre, count(consumos.id) as cantidad_consumos from servicios
     inner join consumos on consumos.id_servicio = servicios.id
 where consumos.fecha between add_months(CURRENT_DATE, -12) and add_months(CURRENT_DATE, 12)
-group by servicios.id
-order by cantidad_consumos desc;
+group by servicios.id, servicios.nombre
+order by cantidad_consumos desc
+fetch first 20 rows only;
 
 -- REQ. 3
-select habitaciones.idhabitacion, ROUND((r.ocupacion / (habitaciones.capacidad * 365)) * 100, 2) as ocupacion from habitaciones
-    inner join (
-        select (reservas.fin - reservas.inicio) * reservas.cantidadpersonas as ocupacion, reservas.idhabitacion from reservas
-        where reservas.inicio between ADD_MONTHS(CURRENT_DATE, -12) and CURRENT_DATE
-    ) r on r.idhabitacion = habitaciones.idhabitacion
-where idhotel = 1;
+select habitaciones.idhabitacion, ROUND((sum(reservas.cantidadpersonas) / sum(habitaciones.capacidad)) * 100, 2) as ocupacion, count(reservas.idreserva) as reservas_habitacion from habitaciones
+    inner join reservas on reservas.idhabitacion = habitaciones.idhabitacion
+where idhotel = 1002 and reservas.inicio >= ADD_MONTHS(CURRENT_DATE, -12)
+group by habitaciones.idhabitacion
+order by ocupacion desc;
 
 -- REQ. 11
 select
