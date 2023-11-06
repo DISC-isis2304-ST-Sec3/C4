@@ -134,12 +134,13 @@ CREATE TABLE usuarios
 CREATE TABLE reservas
 (
     idreserva        INTEGER NOT NULL,
+    fecha_reserva    DATE    NOT NULL,
     inicio           DATE    NOT NULL,
     fin              DATE    NOT NULL,
     cantidadpersonas INTEGER NOT NULL,
     idhabitacion     INTEGER NOT NULL,
     idpago           INTEGER NOT NULL,
-    usuario_id       integer not null,
+    usuario_id       integer,
     plan_tipo        varchar(255 byte)
 );
 
