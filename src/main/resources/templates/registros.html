@@ -23,12 +23,12 @@
     <tr th:each="registro : ${registros}">
       <td th:text="${registro.docpersona}"></td>
       <td th:text="${registro.capacidad}"></td>
-      <td th:text="${registro.reservas.id}"></td>
+      <td th:text="${registro.reserva.id}"></td>
       <td>
         <a class="btn btn-primary btn-sm"
-           th:href="@{/registros/{docpersona}/edit(docpersona=${registro.id})}">Editar</a>
+           th:href="@{/registros/{docpersona}/edit(docpersona=${registro.docpersona})}">Editar</a>
         <a class="btn btn-danger btn-sm"
-           th:href="@{/registros/{docpersona}/delete(docpersona=${registro.id})}">Eliminar</a>
+           th:href="@{/registros/{docpersona}/delete(docpersona=${registro.docpersona})}">Eliminar</a>
       </td>
     </tr>
     </tbody>
@@ -47,7 +47,7 @@
     <div class="form-group">
       <label for="reserva">Reservas :</label>
       <select class="form-control" id="reserva" name="idreserva" required type="number">
-        <option th:each="reserva : ${reservas}" th:text="${reserva.id}" th:value="${reserva.id}"></option>
+        <option th:each="registro : ${registros}" th:text="${registro.docpersona}" th:value="${registro.docpersona}"></option>
       </select>
     </div>
     <button class="btn btn-success" type="submit">Crear</button>

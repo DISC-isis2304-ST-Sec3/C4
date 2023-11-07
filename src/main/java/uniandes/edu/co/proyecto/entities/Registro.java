@@ -1,10 +1,10 @@
 package uniandes.edu.co.proyecto.entities;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "registros")
 public class Registro {
-  
   @Id
   private int docpersona;
 
@@ -13,31 +13,22 @@ public class Registro {
   private Reserva reserva;
 
   private int capacidad;
- 
+
   public Registro() {
   }
 
-  public Registro( int docpersona, int capacidad, Reserva reserva) {
+  public Registro(int docpersona, int capacidad, Reserva reserva) {
     this.docpersona = docpersona;
     this.capacidad = capacidad;
     this.reserva = reserva;
   }
 
-  public int getId() {
+  public int getDocpersona() {
     return docpersona;
   }
 
-  public void setId(int docpersona) {
+  public void setDocpersona(int docpersona) {
     this.docpersona = docpersona;
-  }
-
-
-  public Integer getCapacidad() {
-    return capacidad;
-  }
-
-  public void setCapacidad(Integer capacidad) {
-    this.capacidad = capacidad;
   }
 
   public Reserva getReserva() {
@@ -48,5 +39,11 @@ public class Registro {
     this.reserva = reserva;
   }
 
+  public int getCapacidad() {
+    return capacidad;
+  }
 
+  public void setCapacidad(int capacidad) {
+    this.capacidad = capacidad;
+  }
 }

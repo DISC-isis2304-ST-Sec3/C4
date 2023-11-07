@@ -18,12 +18,12 @@ public interface CuentasRepositorio extends JpaRepository<Cuenta, Long> {
 
   @Modifying
   @Transactional
-  @Query(value = "INSERT INTO CUENTAS (IDPAGO, PAGO) VALUES (hoteles_sequence.nextval, :pago)", nativeQuery = true)
+  @Query(value = "INSERT INTO CUENTAS (IDPAGO, PAGADO) VALUES (hoteles_sequence.nextval, :pago)", nativeQuery = true)
   void crearCuenta(@Param("pago") String pago );
 
   @Modifying
   @Transactional
-  @Query(value = "UPDATE CUENTAS SET PAGO = :pago and IDPAGO = :idpago", nativeQuery = true)
+  @Query(value = "UPDATE CUENTAS SET PAGADO = :pago and IDPAGO = :idpago", nativeQuery = true)
   void actualizarCuenta(@Param("idpago") long idpago, @Param("pago") String pago );
 
   @Modifying

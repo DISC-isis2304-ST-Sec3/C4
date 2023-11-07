@@ -62,7 +62,7 @@
     <div class="form-group">
         <label for="cuenta">Cuentas:</label>
         <select class="form-control" id="cuenta" name="idpago" required type="number">
-          <option th:each="cuenta : ${cuentas}" th:text="${cuenta.id}" th:value="${hotel.id}"></option>
+          <option th:each="cuenta : ${cuentas}" th:text="${cuenta.id}" th:value="${cuenta.id}"></option>
         </select>
       </div>
     <button class="btn btn-success" type="submit">Crear</button>
