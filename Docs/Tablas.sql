@@ -126,8 +126,7 @@ CREATE TABLE usuarios
     nombre                     VARCHAR2(50 CHAR) NOT NULL,
     numdocumento               INTEGER           NOT NULL,
     nickname                   VARCHAR2(25 CHAR) NOT NULL,
-    contraseña                 VARCHAR2(20 CHAR) NOT NULL,
-    adiministrativo_usuario_id INTEGER
+    contraseña                 VARCHAR2(20 CHAR) NOT NULL
 );
 
 --CREACIÓN TABLA RESERVAS
@@ -198,10 +197,6 @@ ALTER TABLE tiendas
 ALTER TABLE tiendas_consumibles
     ADD CONSTRAINT tiendaconsumible_tienda_fk FOREIGN KEY (tienda_nombre)
         REFERENCES tiendas (nombre);
-
-ALTER TABLE usuarios
-    ADD CONSTRAINT usuario_adiministrativo_fk FOREIGN KEY (adiministrativo_usuario_id)
-        REFERENCES ADMINISTRATIVOS (usuario_id);
 
 --CREACIÓN TABLA HABITACIONES
 CREATE TABLE habitaciones
