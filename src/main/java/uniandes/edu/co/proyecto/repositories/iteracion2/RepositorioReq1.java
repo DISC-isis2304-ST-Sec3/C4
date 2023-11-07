@@ -1,15 +1,17 @@
-package uniandes.edu.co.proyecto.repositories;
+package uniandes.edu.co.proyecto.repositories.iteracion2;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import uniandes.edu.co.proyecto.entities.especiales.ConsumosServicio;
 import uniandes.edu.co.proyecto.entities.especiales.DineroHabitacion;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface EspecialesRepositorio extends JpaRepository<DineroHabitacion, Long> {
+public interface RepositorioReq1 extends JpaRepository<DineroHabitacion, Long> {
   @Query(
       value = "select * from (select idhabitacion, coste_total, rownum as r from (" +
           "select sum(consumos.costo) as coste_total, habitaciones.idhabitacion from consumos " +

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Servicios Populares</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+  <div class="container mt-5">
+    <a class="btn btn-primary mb-3 btn-sm" href="/">Página de Inicio</a>
+    <h1 class="text-center mt-2 mb-5">Servicios más populares</h1>
+    <form th:action="@{/servicios_populares}" method="post" class="my-3">
+      <label for="fechaInicial">Fecha Inicial:</label>
+      <input type="date" id="fechaInicial" name="fechaInicial" th:value="${fechaInicial}" required="required" />
+
+      <label for="fechaFinal">Fecha Final:</label>
+      <input type="date" id="fechaFinal" name="fechaFinal" th:value="${fechaFinal}" required="required" />
+
+      <input type="submit" class="btn btn-primary" value="Consultar" />
+    </form>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>ID Servicio</th>
+        <th>Nombre Servicio</th>
+        <th>Cantidad consumos</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="consumo, iter : ${resultados}">
+        <td th:text="${iter.index + 1}" class="font-weight-bold"></td>
+        <td th:text="${consumo.id}"></td>
+        <td th:text="${consumo.nombre}"></td>
+        <td th:text="${consumo.cantidadConsumos}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
