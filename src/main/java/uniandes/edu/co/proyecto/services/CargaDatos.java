@@ -45,7 +45,7 @@ public class CargaDatos {
     long primerServicio = idGenerator.get();
     long ultimoServicio = primerServicio;
 
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 800; i++) {
       ultimoServicio = idGenerator.getAndIncrement();
       String[] tipos = {"DIA", "HORA", "UNICO"};
 
@@ -66,7 +66,7 @@ public class CargaDatos {
 
     servicios = null;
 
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 50; i++) {
       long hotel = idGenerator.getAndIncrement();
 
       hoteles.add(String.format(
@@ -96,7 +96,7 @@ public class CargaDatos {
         List<String> reservasHabitacion = new LinkedList<>();
         List<String> consumosHabitacion = new LinkedList<>();
 
-        for (int k = 0; k < 90; k++) {
+        for (int k = 0; k < faker.number().numberBetween(50, 90); k++) {
           long cuenta = idGenerator.getAndIncrement();
           cuentasHabitacion.add(String.format("(%d, '%s')", cuenta, "false"));
 
