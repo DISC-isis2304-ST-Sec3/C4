@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ocupación habitaciones</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+  <div class="container mt-5">
+    <a class="btn btn-primary mb-3 btn-sm" href="/">Página de Inicio</a>
+    <h1 class="text-center mt-2 mb-5">Ocupación habitaciones</h1>
+    <div class="my-3">
+      <label for="idHotel">Ingrese el id del hotel:</label>
+      <input type="number" id="idHotel" name="idHotel" required="required" />
+
+      <a href="/ocupacion_habitaciones" id="link" class="btn btn-primary">Consultar</a>
+    </div>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>ID Habitación</th>
+        <th>Ocupación (%)</th>
+        <th>Cantidad reservas</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="ocupacion, iter : ${resultados}">
+        <td th:text="${iter.index + 1}" class="font-weight-bold"></td>
+        <td th:text="${ocupacion.id}"></td>
+        <td th:text="${ocupacion.ocupacion}"></td>
+        <td th:text="${ocupacion.cantidadReservas}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <script th:inline="javascript">
+      const idHotel = document.getElementById("idHotel");
+      idHotel.addEventListener("input", function() {
+          const newIdHotel = this.value;
+          document.getElementById("link").setAttribute("href", "/ocupacion_habitaciones?hotel=" + newIdHotel)
+      });
+  </script>
+</body>
+</html>

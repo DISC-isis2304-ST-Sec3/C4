@@ -1,0 +1,30 @@
+-- Elimina las tablas
+drop sequence hoteles_sequence;
+drop table ADMINISTRATIVOS cascade constraints;
+drop table CUENTAS cascade constraints;
+drop table DESCUENTOS cascade constraints;
+drop table DESCUENTOS_PLANES cascade constraints;
+drop table DOTACIONES cascade constraints;
+drop table EQUIPOS cascade constraints;
+drop table EQUIPOS_GIMNASIOS cascade constraints;
+drop table EQUIPOS_SALONES cascade constraints;
+drop table GIMNASIOS cascade constraints;
+drop table HABITACIONES cascade constraints;
+drop table HDOTACIONES cascade constraints;
+drop table HOTELES cascade constraints;
+drop table PISCINAS cascade constraints;
+drop table PLANES cascade constraints;
+drop table PRODUCTOS cascade constraints;
+drop table PROMOCIONES cascade constraints;
+drop table REGISTROS cascade constraints;
+drop table RESERVAS cascade constraints;
+drop table RESERVA_SERVICIOS cascade constraints;
+drop table SALONES cascade constraints;
+drop table SERVICIOS cascade constraints;
+drop table SPAS cascade constraints;
+drop table TIENDAS cascade constraints;
+drop table TIENDAS_CONSUMIBLES cascade constraints;
+drop table USUARIOS cascade constraints;
+drop table CONSUMOS cascade constraints;
+
+commit;

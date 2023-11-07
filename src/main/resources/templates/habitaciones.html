@@ -37,7 +37,12 @@
     </tbody>
   </table>
 
-  <h2>Crear nuevo Habitacion</h2>
+  <h1>Tipos habitación</h1>
+  <ul class="list-group">
+      <li th:each="tipo : ${tipos}" class="list-group-item" th:text="${tipo}"></li>
+  </ul>
+
+  <h2>Crear nuevo Habitación</h2>
   <form method="post" th:action="@{/habitaciones/new/save}">
     <div class="form-group">
       <label for="tipo">Tipo:</label>
