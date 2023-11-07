@@ -7,14 +7,14 @@
 </head>
 <body>
   <div class="container mt-5">
-    <a class="btn btn-primary mb-3" href="/">Página de Inicio</a>
-    <h1>Habitaciones</h1>
+    <a class="btn btn-primary mb-3 btn-sm" href="/">Página de Inicio</a>
+    <h1 class="text-center mt-2 mb-5">Dinero Recolectado en servicios por cada Habitación</h1>
     <div class="d-flex justify-content-between">
-      <a th:href="@{/dinero_habitaciones(page=${pagina - 1})}">Anterior</a>
-      <h2>Pagina <span th:text="${'Pagina ' + pagina.toString()}"></span></h2>
-      <a th:href="@{/dinero_habitaciones(page=${pagina + 1})}">Siguiente</a>
+      <a th:href="@{/dinero_habitaciones(page=${pagina - 1})}" class="btn-link">Anterior</a>
+      <h3>Pagina <span th:text="${'Pagina ' + pagina.toString()}"></span></h3>
+      <a th:href="@{/dinero_habitaciones(page=${pagina + 1})}" class="btn-link">Siguiente</a>
     </div>
-    <table class="table table-bordered">
+    <table class="table table-striped">
       <thead class="thead-dark">
       <tr>
         <th>#</th>
@@ -24,12 +24,17 @@
       </thead>
       <tbody>
       <tr th:each="consumo : ${resultados}">
-        <td th:text="${consumo.r}"></td>
+        <td th:text="${consumo.r}" class="font-weight-bold"></td>
         <td th:text="${consumo.idHabitacion}"></td>
         <td th:text="${consumo.costeTotal}"></td>
       </tr>
       </tbody>
     </table>
+    <div class="d-flex justify-content-between mb-5">
+      <a th:href="@{/dinero_habitaciones(page=${pagina - 1})}" class="btn-link">Anterior</a>
+      <h3>Pagina <span th:text="${'Pagina ' + pagina.toString()}"></span></h3>
+      <a th:href="@{/dinero_habitaciones(page=${pagina + 1})}" class="btn-link">Siguiente</a>
+    </div>
   </div>
 </body>
 </html>

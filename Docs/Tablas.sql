@@ -50,14 +50,8 @@ CREATE TABLE planes
 (
     tipo                  VARCHAR2(50 CHAR) NOT NULL,
     costo                 INTEGER           NOT NULL,
-    duracion              INTEGER           NOT NULL,
-    promocion_idpromocion INTEGER           NOT NULL
+    duracion              INTEGER           NOT NULL
 );
-
-CREATE UNIQUE INDEX plan__idx ON
-    planes (
-            promocion_idpromocion
-            ASC);
 
 ALTER TABLE planes
     ADD CONSTRAINT plan_pk PRIMARY KEY (tipo);
@@ -165,10 +159,6 @@ ALTER TABLE descuentos_planes
 ALTER TABLE descuentos_planes
     ADD CONSTRAINT descuentoplan_plan_fk FOREIGN KEY (plan_tipo)
         REFERENCES planes (tipo);
-
-ALTER TABLE planes
-    ADD CONSTRAINT plan_promocion_fk FOREIGN KEY (promocion_idpromocion)
-        REFERENCES promociones (idpromocion);
 
 ALTER TABLE productos
     ADD CONSTRAINT producto_tienda_fk FOREIGN KEY (tienda_nombre)
