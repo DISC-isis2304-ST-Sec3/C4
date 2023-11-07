@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uniandes.edu.co.proyecto.entities.especiales.DineroHabitacion;
 import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq1;
+import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq11;
 import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq2;
 import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq3;
 
@@ -21,6 +22,8 @@ public class ControladorRequerimietos {
   private RepositorioReq2 repositorioReq2;
   @Autowired
   private RepositorioReq3 repositorioReq3;
+  @Autowired
+  private RepositorioReq11 repositorioReq11;
 
   private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -80,5 +83,12 @@ public class ControladorRequerimietos {
     }
 
     return "ocupacion_habitaciones";
+  }
+
+  @GetMapping("/funcionamiento")
+  public String obtenerFuncionamiento(Model model) {
+    model.addAttribute("funcionamiento", repositorioReq11.ejecutarRequerimiento11());
+
+    return "funcionamiento";
   }
 }
