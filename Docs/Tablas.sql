@@ -50,14 +50,8 @@ CREATE TABLE planes
 (
     tipo                  VARCHAR2(50 CHAR) NOT NULL,
     costo                 INTEGER           NOT NULL,
-    duracion              INTEGER           NOT NULL,
-    promocion_idpromocion INTEGER           NOT NULL
+    duracion              INTEGER           NOT NULL
 );
-
-CREATE UNIQUE INDEX plan__idx ON
-    planes (
-            promocion_idpromocion
-            ASC);
 
 ALTER TABLE planes
     ADD CONSTRAINT plan_pk PRIMARY KEY (tipo);
@@ -126,8 +120,7 @@ CREATE TABLE usuarios
     nombre                     VARCHAR2(50 CHAR) NOT NULL,
     numdocumento               INTEGER           NOT NULL,
     nickname                   VARCHAR2(25 CHAR) NOT NULL,
-    contraseña                 VARCHAR2(20 CHAR) NOT NULL,
-    adiministrativo_usuario_id INTEGER
+    contraseña                 VARCHAR2(20 CHAR) NOT NULL
 );
 
 --CREACIÓN TABLA RESERVAS
@@ -167,10 +160,6 @@ ALTER TABLE descuentos_planes
     ADD CONSTRAINT descuentoplan_plan_fk FOREIGN KEY (plan_tipo)
         REFERENCES planes (tipo);
 
-ALTER TABLE planes
-    ADD CONSTRAINT plan_promocion_fk FOREIGN KEY (promocion_idpromocion)
-        REFERENCES promociones (idpromocion);
-
 ALTER TABLE productos
     ADD CONSTRAINT producto_tienda_fk FOREIGN KEY (tienda_nombre)
         REFERENCES tiendas (nombre);
@@ -198,10 +187,6 @@ ALTER TABLE tiendas
 ALTER TABLE tiendas_consumibles
     ADD CONSTRAINT tiendaconsumible_tienda_fk FOREIGN KEY (tienda_nombre)
         REFERENCES tiendas (nombre);
-
-ALTER TABLE usuarios
-    ADD CONSTRAINT usuario_adiministrativo_fk FOREIGN KEY (adiministrativo_usuario_id)
-        REFERENCES ADMINISTRATIVOS (usuario_id);
 
 --CREACIÓN TABLA HABITACIONES
 CREATE TABLE habitaciones

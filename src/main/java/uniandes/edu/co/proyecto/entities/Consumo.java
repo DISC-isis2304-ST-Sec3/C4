@@ -17,7 +17,7 @@ public class Consumo {
   private int costo;
 
   @ManyToOne
-  @JoinColumn(name = "id_reserva", referencedColumnName = "id")
+  @JoinColumn(name = "id_reserva", referencedColumnName = "idreserva")
   private Reserva reserva;
 
   @ManyToOne

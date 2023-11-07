@@ -3,43 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <title>Dinero habitaciones</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
 </head>
 <body>
-  <a class="btn btn-primary mb-3" href="/">Página de Inicio</a>
-  <h1>Habitaciones</h1>
-  <div class="d-flex justify-content-between">
-    <a th:href="@{/dinero_habitaciones(page=${pagina - 1})}">Anterior</a>
-    <h2>Pagina <span th:text="${pagina}"></span></h2>
-    <a th:href="@{/dinero_habitaciones(page=${pagina + 1})}">Anterior</a>
+  <div class="container mt-5">
+    <a class="btn btn-primary mb-3 btn-sm" href="/">Página de Inicio</a>
+    <h1 class="text-center mt-2 mb-5">Dinero Recolectado en servicios por cada Habitación</h1>
+    <div class="d-flex justify-content-between">
+      <a th:href="@{/dinero_habitaciones(page=${pagina - 1})}" class="btn-link">Anterior</a>
+      <h3>Pagina <span th:text="${'Pagina ' + pagina.toString()}"></span></h3>
+      <a th:href="@{/dinero_habitaciones(page=${pagina + 1})}" class="btn-link">Siguiente</a>
+    </div>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>ID Habitación</th>
+        <th>Dinero recolectado</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="consumo : ${resultados}">
+        <td th:text="${consumo.r}" class="font-weight-bold"></td>
+        <td th:text="${consumo.idHabitacion}"></td>
+        <td th:text="${consumo.costeTotal}"></td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-between mb-5">
+      <a th:href="@{/dinero_habitaciones(page=${pagina - 1})}" class="btn-link">Anterior</a>
+      <h3>Pagina <span th:text="${'Pagina ' + pagina.toString()}"></span></h3>
+      <a th:href="@{/dinero_habitaciones(page=${pagina + 1})}" class="btn-link">Siguiente</a>
+    </div>
   </div>
-  <table class="table table-bordered">
-    <thead class="thead-dark">
-    <tr>
-      <th>IDRESERVA</th>
-      <th>INICIO</th>
-      <th>FIN</th>
-      <th>CANTIDADPERSONAS</th>
-      <th>Habitacion</th>
-      <th>Cuenta</th>
-      <th>Acción</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="reserva : ${reservas}">
-      <td th:text="${reserva.id}"></td>
-      <td th:text="${reserva.inicio}"></td>
-      <td th:text="${reserva.fin}"></td>
-      <td th:text="${reserva.cantidadpersonas}"></td>
-      <td th:text="${reserva.habitacion.id}"></td>
-      <td th:text="${reserva.cuenta.id}"></td>
-      <td>
-        <a class="btn btn-primary btn-sm"
-           th:href="@{/reservas/{idreserva}/edit(idreserva=${reserva.id})}">Editar</a>
-        <a class="btn btn-danger btn-sm"
-           th:href="@{/reservas/{idreserva}/delete(idreserva=${reserva.id})}">Eliminar</a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
 </body>
 </html>

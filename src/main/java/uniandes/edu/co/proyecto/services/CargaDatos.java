@@ -6,10 +6,7 @@ import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uniandes.edu.co.proyecto.repositories.CuentasRepositorio;
-import uniandes.edu.co.proyecto.repositories.HabitacionesRepositorio;
 import uniandes.edu.co.proyecto.repositories.HotelesRepositorio;
-import uniandes.edu.co.proyecto.repositories.ReservasRepositorio;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,12 +19,6 @@ import java.util.concurrent.atomic.AtomicLong;
 public class CargaDatos {
   @Autowired
   private HotelesRepositorio hotelesRepositorio;
-  @Autowired
-  private HabitacionesRepositorio habitacionesRepositorio;
-  @Autowired
-  private ReservasRepositorio reservasRepositorio;
-  @Autowired
-  private CuentasRepositorio cuentasRepositorio;
   @Autowired
   private EntityManager entityManager;
 
@@ -79,7 +70,7 @@ public class CargaDatos {
       long hotel = idGenerator.getAndIncrement();
 
       hoteles.add(String.format(
-          "(%d, '%s', %s, '%s')",
+          "(%d, '%s', %d, '%s')",
           hotel,
           faker.company().name().replace("'", ""),
           faker.number().numberBetween(1, 5),
