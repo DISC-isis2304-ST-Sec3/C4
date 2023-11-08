@@ -28,6 +28,36 @@ where idhotel = :idhotel and reservas.inicio >= ADD_MONTHS(CURRENT_DATE, -12)
 group by habitaciones.idhabitacion
 order by ocupacion desc;
 
+-- REQ. 5
+select usuarios.id, usuarios.nombre, consumos.costo 
+from usuarios join consumos on consumos.id_usuario = usuarios.id
+where consumos.fecha between add_months(current_date, -12) and current_date and usuarios.id = 1;
+
+-- REQ. 7
+SELECT u.nombre AS nombre_cliente,  res.inicio AS fecha_consumo,  COUNT(*) AS veces_consumido 
+FROM usuarios u
+JOIN registros reg ON u.numDocumento = reg.docpersona 
+JOIN reservas res ON reg.idreserva = res.idreserva
+JOIN reserva_servicios ON res.idreserva = reserva_servicios.id
+LEFT JOIN servicios s ON reserva_servicios.id_spa = s.id OR reserva_servicios.id_salon = s.id 
+WHERE res.inicio BETWEEN ADD_MONTHS(CURRENT_DATE, -12) AND CURRENT_DATE  AND s.id IS NULL 
+GROUP BY u.nombre, res.inicio
+ORDER BY u.nombre ASC;
+
+-- REQ. 9
+select usuarios.id, count(consumos.id_servicio) from usuarios
+inner join consumos on consumos.id_usuario = usuarios.id
+where consumos.fecha between add_months(current_date, -12) and current_date and consumos.id_servicio = 1
+having count(consumos.id_servicio)>0
+group by usuarios.id;
+
+-- REQ. 10
+select usuarios.id, count(consumos.id_servicio) from usuarios
+inner join consumos on consumos.id_usuario = usuarios.id
+where consumos.fecha between add_months(current_date, -12) and current_date and consumos.id_servicio = 1
+having count(consumos.id_servicio)=0
+group by usuarios.id;
+
 -- REQ. 11
 select
     c.SEMANA,
