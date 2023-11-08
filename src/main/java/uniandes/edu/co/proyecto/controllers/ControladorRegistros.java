@@ -29,7 +29,7 @@ public class ControladorRegistros {
 
   @PostMapping("/new/save")
   public String createRegistro(
-      @ModelAttribute(name = "docpersona") int docpersona,
+      @ModelAttribute(name = "docpersona") Integer docpersona,
       @ModelAttribute(name = "capacidad") Integer capacidad,
       @ModelAttribute(name = "idreserva") long idreserva
   ) {
@@ -40,7 +40,7 @@ public class ControladorRegistros {
   }
 
   @GetMapping("/{id}/edit")
-  public String editRegistroForm(@PathVariable(name = "id") Long docpersona, Model model) {
+  public String editRegistroForm(@PathVariable(name = "id") Integer docpersona, Model model) {
     Registro registro = registrosRepositorio.obtenerRegistro(docpersona);
     model.addAttribute("reservas", reservasRepositorio.obtenerReservas());
     model.addAttribute("registro", registro);
@@ -50,7 +50,7 @@ public class ControladorRegistros {
 
   @PostMapping("/{id}/edit/save")
   public String actualizarRegistro(
-      @PathVariable(name = "id") Long docpersona,
+      @PathVariable(name = "id") Integer docpersona,
       @ModelAttribute(name = "capacidad") Integer capacidad,
       @ModelAttribute(name = "idreserva") long idreserva
   ) throws ParseException {
@@ -62,7 +62,7 @@ public class ControladorRegistros {
   }
 
   @GetMapping("/{id}/delete")
-  public String eliminarRegistro(@PathVariable(name = "id") Long docpersona) {
+  public String eliminarRegistro(@PathVariable(name = "id") Integer docpersona) {
     registrosRepositorio.eliminarRegistro(docpersona);
     return "redirect:/registros";
   }

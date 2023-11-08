@@ -1,6 +1,12 @@
 create index consumos_fecha_idx on consumos(fecha);
 create index reservas_fecha_idx on reservas(inicio);
 create index reservas_hab_idx on reservas(idhabitacion);
+CREATE INDEX idx_servicios_tipo_cobro ON servicios(tipo_cobro);
+CREATE INDEX idx_reserva_servicios_horario ON reserva_servicios(horario);
+CREATE INDEX idx_servicios_cobro ON servicios(cobro);
+CREATE INDEX consumos_fecha_costo ON consumos(fecha, costo);
+CREATE INDEX reservas_fecha ON reservas(fecha_reserva);
+CREATE INDEX idx_horario ON reserva_servicios(horario);
 
 -- REQ. 1
 select * from (
@@ -27,6 +33,44 @@ select habitaciones.idhabitacion, ROUND((sum(reservas.cantidadpersonas) / sum(ha
 where idhotel = :idhotel and reservas.inicio >= ADD_MONTHS(CURRENT_DATE, -12)
 group by habitaciones.idhabitacion
 order by ocupacion desc;
+
+-- REQ. 4
+SELECT s.id, s.nombre, s.capacidad, s.tipo_cobro, s.cobro
+FROM servicios1 s, reserva_servicios1 rs
+WHERE 
+    s.cobro BETWEEN 50 AND 200
+    AND rs.horario BETWEEN TO_DATE('2022-11-01', 'YYYY-MM-DD') AND TO_DATE('2022-11-10', 'YYYY-MM-DD') 
+    AND s.tipo_cobro = 'DIA';
+
+-- REQ. 6
+(SELECT 'Mayor Ocupación' AS tipo, fecha_reserva AS fecha, COUNT(*) AS valor
+FROM reservas
+GROUP BY fecha_reserva
+ORDER BY COUNT(*) DESC
+FETCH FIRST 1 ROW ONLY)
+UNION 
+(SELECT 'Mayores Ingresos' AS tipo, fecha, SUM(costo) AS valor
+FROM consumos
+GROUP BY fecha
+ORDER BY SUM(costo) DESC
+FETCH FIRST 1 ROW ONLY)
+UNION 
+(SELECT 'Menor Demanda' AS tipo, fecha_reserva AS fecha, COUNT(*) AS valor 
+FROM reservas 
+GROUP BY fecha_reserva 
+ORDER BY COUNT(*) ASC 
+FETCH FIRST 1 ROW ONLY);
+
+-- REQ. 8
+SELECT s.id, s.nombre, s.capacidad, s.tipo_cobro, s.cobro
+FROM servicios s
+WHERE s.id NOT IN (
+    SELECT rs.id_spa
+    FROM reserva_servicios rs
+    WHERE rs.horario >= ADD_MONTHS(SYSDATE, -12) 
+    GROUP BY rs.id_spa
+    HAVING COUNT(DISTINCT TO_CHAR(rs.horario, 'IW')) >= 3);
+
 
 -- REQ. 11
 select

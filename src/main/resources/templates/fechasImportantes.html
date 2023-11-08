@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Operacion HotelAndes</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+  <div class="container mt-5">
+    <a class="btn btn-primary mb-3 btn-sm" href="/">Página de Inicio</a>
+    <h1 class="text-center mt-2 mb-5">Operacion HotelAndes</h1>
+    <div class="d-flex justify-content-between">
+      <a th:href="@{/fechasImportantes(page=${pagina - 1})}" class="btn-link">Anterior</a>
+      <h3>Pagina <span th:text="${'Pagina ' + pagina.toString()}"></span></h3>
+      <a th:href="@{/fechasImportantespage=${pagina + 1})}" class="btn-link">Siguiente</a>
+    </div>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+      </thead>
+      <tbody>
+        <tr th:each="fechasImportantes, iter : ${resultados}">
+          <td th:text="${fechasImportantes.tipo}"></td>
+          <td th:text="${fechasImportantes.fecha}"></td>
+          <td th:text="${fechasImportantes.valor}"></td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Servicios Especiales</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+  <div class="container mt-5">
+    <a class="btn btn-primary mb-3 btn-sm" href="/">Página de Inicio</a>
+    <h1 class="text-center mt-2 mb-5">Servicios según unas caracteristicas</h1>
+    <div class="d-flex justify-content-between">
+      <a th:href="@{/ServiciosEspeciales(page=${pagina - 1})}" class="btn-link">Anterior</a>
+      <h3>Pagina <span th:text="${'Pagina ' + pagina.toString()}"></span></h3>
+      <a th:href="@{/ServiciosEspeciales(page=${pagina + 1})}" class="btn-link">Siguiente</a>
+    </div>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+      </thead>
+      <tbody>
+        <tr th:each="serviciosEspeciales, iter : ${resultados}">
+          <td th:text="${serviciosEspeciales.id}"></td>
+          <td th:text="${serviciosEspeciales.nombre}"></td>
+          <td th:text="${serviciosEspeciales.capacidad}"></td>
+          <td th:text="${serviciosEspeciales.tipo_cobro}"></td>
+          <td th:text="${serviciosEspeciales.cobro}"></td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+</body>
+</html>

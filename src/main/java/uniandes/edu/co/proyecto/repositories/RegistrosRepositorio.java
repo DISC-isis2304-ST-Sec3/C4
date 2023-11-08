@@ -8,12 +8,12 @@ import uniandes.edu.co.proyecto.entities.Registro;
 
 import java.util.Collection;
 
-public interface RegistrosRepositorio extends JpaRepository<Registro, Long> {
+public interface RegistrosRepositorio extends JpaRepository<Registro, Integer> {
   @Query(value = "SELECT * FROM REGISTROS", nativeQuery = true)
   Collection<Registro> obtenerRegistros();
 
   @Query(value = "SELECT * FROM REGISTROS WHERE DOCPERSONA = :docpersona", nativeQuery = true)
-  Registro obtenerRegistro(@Param("docpersona") Long docpersona);
+  Registro obtenerRegistro(@Param("docpersona") Integer docpersona);
 
   @Modifying
   @Transactional
@@ -31,7 +31,7 @@ public interface RegistrosRepositorio extends JpaRepository<Registro, Long> {
       "SET DOCPERSONA = :docpersona, CAPACIDAD = :capacidad,  IDRESERVA = :idreserva WHERE DOCPERSONA = :docpersona"
       , nativeQuery = true)
   void actualizarRegistro(
-      @Param("docpersona") long docpersona,
+      @Param("docpersona") Integer docpersona,
       @Param("capacidad") Integer capacidad,
       @Param("idreserva") long idreserva
   );
@@ -39,5 +39,5 @@ public interface RegistrosRepositorio extends JpaRepository<Registro, Long> {
   @Modifying
   @Transactional
   @Query(value = "DELETE FROM REGISTROS WHERE DOCPERSONA = :docpersona", nativeQuery = true)
-  void eliminarRegistro(@Param("docpersona") long docpersona);
+  void eliminarRegistro(@Param("docpersona") Integer docpersona);
 }
