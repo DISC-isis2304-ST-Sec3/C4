@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "productos")
 public class Producto {
   @Id
+  @Column(name = "idproducto")
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long idProducto;
   private boolean todoIncluido;

@@ -29,8 +29,8 @@ public class Consumo {
   private Servicio servicio;
 
   @ManyToOne
-  @JoinColumn(name = "id_producto", referencedColumnName = "id")
-  private Producto spa;
+  @JoinColumn(name = "id_producto", referencedColumnName = "idproducto")
+  private Producto producto;
 
   @ManyToOne
   @JoinColumn(name = "id_usuario", referencedColumnName = "id")
