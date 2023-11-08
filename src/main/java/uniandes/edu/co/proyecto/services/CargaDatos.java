@@ -8,6 +8,8 @@ import oracle.net.jdbc.TNSAddress.Description;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import uniandes.edu.co.proyecto.entities.ReservaServicio;
 import uniandes.edu.co.proyecto.repositories.HotelesRepositorio;
 
 import java.text.SimpleDateFormat;
@@ -42,6 +44,8 @@ public class CargaDatos {
     List<String> salones = new LinkedList<>();
     List<String> hoteles = new LinkedList<>();
     List<String> habitaciones = new LinkedList<>();
+    List<String> reservasServicio = new LinkedList<>();
+    List<String> reservasServicioSalon = new LinkedList<>();
     List<List<String>> cuentas = new LinkedList<>();
     List<List<String>> reservas = new LinkedList<>();
     List<List<String>> consumos = new LinkedList<>();
@@ -97,6 +101,8 @@ public class CargaDatos {
 
     spa = null;
 
+    
+
 
     long primerSalon = idGenerator.get();
     long ultimoSalon = primerSalon;
@@ -115,6 +121,7 @@ public class CargaDatos {
       ));
     }
 
+
     String querySalon = String.format("INSERT ALL INTO SALONES (ID, TIPO, COSTO, CAPACIDAD) values %s SELECT * FROM DUAL\n", String.join(" INTO SALONES (ID, TIPO, COSTO, CAPACIDAD)) values ", salones));
     Query sqlSalones = entityManager.createNativeQuery(querySalon);
     sqlSalones.executeUpdate();
@@ -122,6 +129,40 @@ public class CargaDatos {
 
     salones = null;
 
+    for (int l = 0; l < 1000; l++) {
+      if (faker.random().nextBoolean()){
+        reservasServicio.add(String.format(
+          "(%d,  TO_TIMESTAMP('%s', '"+formato+"'), %d, %d)",
+          idGenerator.getAndIncrement(),
+          dateFormat.format(faker.date().between(calendar.getTime(), topCalendar.getTime())),
+          faker.number().numberBetween(primerSpa, ultimoSpa),
+          faker.number().numberBetween(primerServicio, ultimoServicio)
+      ));
+      }
+      else{
+        reservasServicioSalon.add(String.format(
+          "(%d,  TO_TIMESTAMP('%s', '"+formato+"'), %d, %d)",
+          idGenerator.getAndIncrement(),
+          dateFormat.format(faker.date().between(calendar.getTime(), topCalendar.getTime())),
+          faker.number().numberBetween(primerSalon, ultimoSalon),
+          faker.number().numberBetween(primerServicio, ultimoServicio)
+      ));
+      }
+    }
+
+    String queryServicioSalon = String.format("INSERT INTO reserva_servicios (id, horario, duracion, id_salon) values %s SELECT * FROM DUAL\n", String.join(" INTO reserva_servicios (id, horario, duracion, id_salon) values ", reservasServicioSalon));
+    Query sqlServiciosalon = entityManager.createNativeQuery(queryServicioSalon);
+    sqlServiciosalon.executeUpdate();
+    System.out.println("ServiciosSalon");
+
+    reservasServicioSalon = null;
+
+    String queryServicioSpa = String.format("INSERT INTO reserva_servicios (id, horario, duracion, id_spa) values %s SELECT * FROM DUAL\n", String.join(" INTO reserva_servicios (id, horario, duracion, id_spa) values ", reservasServicio));
+    Query sqlServiciospa = entityManager.createNativeQuery(queryServicioSpa);
+    sqlServiciospa.executeUpdate();
+    System.out.println("ServiciosSpa");
+
+    reservasServicio = null;
 
     for (int i = 0; i < 100; i++) {
       long hotel = idGenerator.getAndIncrement();
@@ -152,7 +193,7 @@ public class CargaDatos {
         List<String> cuentasHabitacion = new LinkedList<>();
         List<String> reservasHabitacion = new LinkedList<>();
         List<String> consumosHabitacion = new LinkedList<>();
-        List<String> reservasServicio = new LinkedList<>();
+
 
        
 
@@ -192,6 +233,8 @@ public class CargaDatos {
                 faker.number().numberBetween(primerServicio, ultimoServicio)
             ));
           }
+
+          
 
           
         }
