@@ -28,20 +28,25 @@ public class Consumo {
   @JoinColumn(name = "id_servicio", referencedColumnName = "id")
   private Servicio servicio;
 
-//  @ManyToOne
-//  @JoinColumn(name = "id_producto", referencedColumnName = "id")
-//  private Producto spa;
+  @ManyToOne
+  @JoinColumn(name = "id_producto", referencedColumnName = "id")
+  private Producto spa;
+
+  @ManyToOne
+  @JoinColumn(name = "id_usuario", referencedColumnName = "id")
+  private Usuario usuario ;
 
 
   public Consumo() {
   }
 
-  public Consumo(Date fecha, int costo, Reserva reserva, ReservaServicio salon, Servicio servicio) {
+  public Consumo(Date fecha, int costo, Reserva reserva, ReservaServicio salon, Servicio servicio, Usuario usuario) {
     this.fecha = fecha;
     this.costo = costo;
     this.reserva = reserva;
     this.salon = salon;
     this.servicio = servicio;
+    this.usuario = usuario;
   }
 
   public long getId() {
@@ -90,5 +95,13 @@ public class Consumo {
 
   public void setServicio(Servicio servicio) {
     this.servicio = servicio;
+  }
+
+  public Usuario getUsuario() {
+    return usuario;
+  }
+
+  public void setUsuario(Usuario usuario) {
+    this.usuario = usuario;
   }
 }

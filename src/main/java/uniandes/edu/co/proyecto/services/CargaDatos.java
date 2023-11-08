@@ -38,6 +38,7 @@ public class CargaDatos {
     List<String> servicios = new LinkedList<>();
     List<String> hoteles = new LinkedList<>();
     List<String> habitaciones = new LinkedList<>();
+    List<String> usuarios = new LinkedList<>();
     List<List<String>> cuentas = new LinkedList<>();
     List<List<String>> reservas = new LinkedList<>();
     List<List<String>> consumos = new LinkedList<>();
