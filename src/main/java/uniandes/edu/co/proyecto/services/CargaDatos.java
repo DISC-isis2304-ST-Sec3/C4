@@ -4,6 +4,8 @@ import com.github.javafaker.Faker;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
+import oracle.net.jdbc.TNSAddress.Description;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uniandes.edu.co.proyecto.repositories.HotelesRepositorio;
@@ -36,11 +38,15 @@ public class CargaDatos {
     topCalendar.add(Calendar.MONTH, 6);
 
     List<String> servicios = new LinkedList<>();
+    List<String> spa = new LinkedList<>();
+    List<String> salones = new LinkedList<>();
     List<String> hoteles = new LinkedList<>();
     List<String> habitaciones = new LinkedList<>();
     List<List<String>> cuentas = new LinkedList<>();
     List<List<String>> reservas = new LinkedList<>();
     List<List<String>> consumos = new LinkedList<>();
+    
+     
 
     long primerServicio = idGenerator.get();
     long ultimoServicio = primerServicio;
@@ -65,6 +71,57 @@ public class CargaDatos {
     System.out.println("SERVICIOS");
 
     servicios = null;
+
+
+    long primerSpa = idGenerator.get();
+    long ultimoSpa = primerSpa;
+
+    for (int i = 0; i < 1000; i++) {
+      ultimoSpa = idGenerator.getAndIncrement();
+      String[] descripcion = {"RELAJANTE", "MEDICINAL"};
+
+      spa.add(String.format(
+          "(%d, '%d', %s, '%d')",
+          ultimoSpa,
+          faker.number().numberBetween(1, 500),
+          faker.number().numberBetween(1, 500),
+          descripcion[faker.random().nextInt(descripcion.length)],
+          faker.number().numberBetween(0, 150000)
+      ));
+    }
+
+    String querySpa = String.format("INSERT ALL INTO SPAS (ID, COSTO, DESCRIPCION, ID_HOTEL) values %s SELECT * FROM DUAL\n", String.join(" INTO SPAS (ID, COSTO, DESCRIPCION, ID_HOTEL)) values ", spa));
+    Query sqlSpa = entityManager.createNativeQuery(querySpa);
+    sqlSpa.executeUpdate();
+    System.out.println("SPAS");
+
+    spa = null;
+
+
+    long primerSalon = idGenerator.get();
+    long ultimoSalon = primerSalon;
+
+    for (int i = 0; i < 1000; i++) {
+      ultimoSalon = idGenerator.getAndIncrement();
+      String[] tipo = {"REUNIONES", "CONFERENCIAS"};
+
+      salones.add(String.format(
+          "(%d, '%s', %d, '%d')",
+          ultimoSalon,
+          faker.number().numberBetween(1, 500),
+          tipo[faker.random().nextInt(tipo.length)],
+          faker.number().numberBetween(1, 15000),
+          faker.number().numberBetween(1, 150)
+      ));
+    }
+
+    String querySalon = String.format("INSERT ALL INTO SALONES (ID, TIPO, COSTO, CAPACIDAD) values %s SELECT * FROM DUAL\n", String.join(" INTO SALONES (ID, TIPO, COSTO, CAPACIDAD)) values ", salones));
+    Query sqlSalones = entityManager.createNativeQuery(querySalon);
+    sqlSalones.executeUpdate();
+    System.out.println("SALONES");
+
+    salones = null;
+
 
     for (int i = 0; i < 100; i++) {
       long hotel = idGenerator.getAndIncrement();
@@ -95,6 +152,9 @@ public class CargaDatos {
         List<String> cuentasHabitacion = new LinkedList<>();
         List<String> reservasHabitacion = new LinkedList<>();
         List<String> consumosHabitacion = new LinkedList<>();
+        List<String> reservasServicio = new LinkedList<>();
+
+       
 
         for (int k = 0; k < 90; k++) {
           long cuenta = idGenerator.getAndIncrement();
@@ -132,6 +192,8 @@ public class CargaDatos {
                 faker.number().numberBetween(primerServicio, ultimoServicio)
             ));
           }
+
+          
         }
         cuentas.add(cuentasHabitacion);
         reservas.add(reservasHabitacion);
@@ -169,6 +231,8 @@ public class CargaDatos {
       sqlConsumos.executeUpdate();
     }
     System.out.println("CONSUMOS");
+
+
 
     Query querySecuencia = entityManager.createNativeQuery("alter sequence hoteles_sequence restart start with " + idGenerator.incrementAndGet());
     querySecuencia.executeUpdate();
