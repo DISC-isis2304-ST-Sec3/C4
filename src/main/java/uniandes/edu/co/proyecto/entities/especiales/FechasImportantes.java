@@ -4,10 +4,11 @@ import java.sql.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class FechasImportantes {
-
+  @Id
   @Column(name = "tipo")
   private String tipo;
 
