@@ -14,6 +14,7 @@ import uniandes.edu.co.proyecto.repositories.ReservasRepositorio;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 @Controller
@@ -48,7 +49,7 @@ public class ControladorReservas {
     Habitacion habitacion = habitacionesRepositorio.obtenerHabitacion(idhabitacion);
     Cuenta cuenta = cuentasRepositorio.obtenerCuenta(idpago);
 
-    reservasRepositorio.crearReserva(dateFormat.parse(inicio), dateFormat.parse(fin), cantidadpersonas, habitacion.getId(), cuenta.getId());
+    reservasRepositorio.crearReserva(dateFormat.parse(inicio), new Date(), dateFormat.parse(fin), cantidadpersonas, habitacion.getId(), cuenta.getId());
     return "redirect:/reservas";
   }
      
