@@ -372,10 +372,12 @@ create table consumos
     id_reserva_servicio number,
     id_producto         number,
     id_servicio         number,
+    id_usuario          number,
     constraint pk_consumos primary key (id),
     constraint fk_consumos_reserva foreign key (id_reserva_servicio) references reserva_servicios,
     constraint fk_consumos_producto foreign key (id_producto) references productos,
     constraint fk_consumos_servicios foreign key (id_servicio) references servicios,
+    constraint fk_consumos_usuarios foreign key (id_usuario) references usuarios,
     constraint ck_consumos_costo check ( costo > 0 )
 );
 

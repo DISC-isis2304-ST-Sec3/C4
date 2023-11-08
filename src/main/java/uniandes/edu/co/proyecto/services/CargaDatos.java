@@ -43,13 +43,35 @@ public class CargaDatos {
     List<String> salones = new LinkedList<>();
     List<String> hoteles = new LinkedList<>();
     List<String> habitaciones = new LinkedList<>();
+    List<String> usuarios = new LinkedList<>();
     List<String> reservasServicio = new LinkedList<>();
     List<String> reservasServicioSalon = new LinkedList<>();
     List<List<String>> cuentas = new LinkedList<>();
     List<List<String>> reservas = new LinkedList<>();
     List<List<String>> consumos = new LinkedList<>();
-    
-     
+
+    long primerUsuario = idGenerator.get();
+    long ultimoUsuario = primerUsuario;
+
+    for (int i = 0; i < 400; i++) {
+      ultimoUsuario = idGenerator.getAndIncrement();
+
+      usuarios.add(String.format(
+          "(%d, '%s', %d, '%s', '%s')",
+          ultimoUsuario,
+          faker.name().name(),
+          faker.number().numberBetween(100000, 100000),
+          faker.name().username(),
+          faker.name().username()
+      ));
+    }
+
+    String queryUsuarios = String.format("INSERT ALL INTO USUARIOS (ID, NOMBRE, NUMDOCUMENTO, NICKNAME, CONTRASEÑA) values %s SELECT * FROM DUAL", String.join(" INTO USUARIOS (ID, NOMBRE, NUMDOCUMENTO, NICKNAME, CONTRASEÑA) values ", servicios));
+    Query sqlUsuarios = entityManager.createNativeQuery(queryUsuarios);
+    sqlUsuarios.executeUpdate();
+    System.out.println("USUARIOS");
+
+    servicios = null;
 
     long primerServicio = idGenerator.get();
     long ultimoServicio = primerServicio;
