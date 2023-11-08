@@ -12,20 +12,20 @@ import java.util.List;
 @Repository
 public interface RepositorioReq6 extends JpaRepository<FechasImportantes, Long> {
   @Query(
-      value = "(SELECT 'Mayor Ocupación' AS tipo, fecha_reserva AS fecha, COUNT(*) AS valor" +
+      value = "(SELECT 'Mayor Ocupación' AS tipo, fecha_reserva AS fecha, COUNT(*) AS valor " +
           "FROM reservas " +
-          "GROUP BY fecha_reserva" +
-          "ORDER BY COUNT(*) DESC" +
-          "FETCH FIRST 1 ROW ONLY)" +
-          "UNION " +
-          "FROM consumos" +
-          "GROUP BY fecha"+
-          "ORDER BY SUM(costo) DESC"+
+          "GROUP BY fecha_reserva " +
+          "ORDER BY COUNT(*) DESC " +
+          "FETCH FIRST 1 ROW ONLY) " +
+          "UNION (SELECT 'Mayores Ingresos' AS tipo, fecha, SUM(costo) AS valor " +
+          "FROM consumos " +
+          "GROUP BY fecha "+
+          "ORDER BY SUM(costo) DESC "+
           "FETCH FIRST 1 ROW ONLY)"+
           "UNION "+
-          "(SELECT 'Menor Demanda' AS tipo, fecha_reserva AS fecha, COUNT(*) AS valor" + 
-          "FROM reservas" + 
-          "GROUP BY fecha_reserva" + 
+          "(SELECT 'Menor Demanda' AS tipo, fecha_reserva AS fecha, COUNT(*) AS valor " +
+          "FROM reservas " +
+          "GROUP BY fecha_reserva " +
           "ORDER BY COUNT(*) ASC " + 
           "FETCH FIRST 1 ROW ONLY)",
       nativeQuery = true)
