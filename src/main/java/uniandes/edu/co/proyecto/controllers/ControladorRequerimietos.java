@@ -9,6 +9,7 @@ import uniandes.edu.co.proyecto.entities.especiales.FechasImportantes;
 import uniandes.edu.co.proyecto.entities.especiales.ServicioPocaDemanda;
 import uniandes.edu.co.proyecto.entities.especiales.ServiciosEspeciales;
 import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq1;
+import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq11;
 import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq2;
 import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq3;
 import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq4;
@@ -33,6 +34,8 @@ public class ControladorRequerimietos {
   private RepositorioReq6 repositorioReq6;
   @Autowired
   private RepositorioReq8 repositorioReq8;
+  @Autowired
+  private RepositorioReq11 repositorioReq11;
 
   private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -126,5 +129,12 @@ public class ControladorRequerimietos {
     model.addAttribute("page", page);
 
     return "serviciosEspeciales";
+   }
+   
+  @GetMapping("/funcionamiento")
+  public String obtenerFuncionamiento(Model model) {
+    model.addAttribute("funcionamiento", repositorioReq11.ejecutarRequerimiento11());
+
+    return "funcionamiento";
   }
 }
