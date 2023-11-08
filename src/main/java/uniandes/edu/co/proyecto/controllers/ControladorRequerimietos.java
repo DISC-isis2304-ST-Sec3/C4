@@ -117,7 +117,7 @@ public class ControladorRequerimietos {
     return "servicioPocaDemanda";
   }
 
-  @GetMapping("/ServiciosEspeciales")
+  @GetMapping("/serviciosEspeciales")
   public String obtenerServiciosEspeciales(Model model,
    @RequestParam(name = "page", defaultValue = "1") int page) {
     if (page < 1) page = 1;
@@ -125,6 +125,6 @@ public class ControladorRequerimietos {
     model.addAttribute("resultados", repositorioReq4.ejecutarRequerimiento4(page));
     model.addAttribute("page", page);
 
-    return "ServiciosEspeciales";
+    return "serviciosEspeciales";
   }
 }
