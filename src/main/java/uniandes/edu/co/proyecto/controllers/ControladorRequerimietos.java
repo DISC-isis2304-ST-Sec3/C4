@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import uniandes.edu.co.proyecto.entities.especiales.DineroHabitacion;
 import uniandes.edu.co.proyecto.entities.especiales.FechasImportantes;
 import uniandes.edu.co.proyecto.entities.especiales.ServicioPocaDemanda;
+import uniandes.edu.co.proyecto.entities.especiales.ServiciosEspeciales;
 import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq1;
 import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq2;
 import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq3;
+import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq4;
 import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq6;
 import uniandes.edu.co.proyecto.repositories.iteracion2.RepositorioReq8;
 
@@ -25,6 +27,8 @@ public class ControladorRequerimietos {
   private RepositorioReq2 repositorioReq2;
   @Autowired
   private RepositorioReq3 repositorioReq3;
+  @Autowired
+  private RepositorioReq4 repositorioReq4;
   @Autowired
   private RepositorioReq6 repositorioReq6;
   @Autowired
@@ -111,5 +115,16 @@ public class ControladorRequerimietos {
     model.addAttribute("page", page);
 
     return "servicioPocaDemanda";
+  }
+
+  @GetMapping("/ServiciosEspeciales")
+  public String obtenerServiciosEspeciales(Model model,
+   @RequestParam(name = "page", defaultValue = "1") int page) {
+    if (page < 1) page = 1;
+    List<ServiciosEspeciales> r = repositorioReq4.ejecutarRequerimiento4(page);
+    model.addAttribute("resultados", repositorioReq4.ejecutarRequerimiento4(page));
+    model.addAttribute("page", page);
+
+    return "ServiciosEspeciales";
   }
 }
