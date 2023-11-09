@@ -36,11 +36,16 @@ order by ocupacion desc;
 
 -- REQ. 4
 SELECT s.id, s.nombre, s.capacidad, s.tipo_cobro, s.cobro
-FROM servicios1 s, reserva_servicios1 rs
-WHERE 
+FROM servicios s, reserva_servicios rs
+WHERE
     s.cobro BETWEEN 50 AND 200
-    AND rs.horario BETWEEN TO_DATE('2022-11-01', 'YYYY-MM-DD') AND TO_DATE('2022-11-10', 'YYYY-MM-DD') 
+    AND rs.horario BETWEEN TO_DATE('2022-11-01', 'YYYY-MM-DD') AND TO_DATE('2022-11-10', 'YYYY-MM-DD')
     AND s.tipo_cobro = 'DIA';
+
+-- REQ. 5
+select usuarios.id, usuarios.nombre, consumos.costo
+from usuarios join consumos on consumos.id_usuario = usuarios.id
+where consumos.fecha between add_months(current_date, -12) and current_date and usuarios.id = 1;
 
 -- REQ. 6
 (SELECT 'Mayor Ocupación' AS tipo, fecha_reserva AS fecha, COUNT(*) AS valor
@@ -48,29 +53,53 @@ FROM reservas
 GROUP BY fecha_reserva
 ORDER BY COUNT(*) DESC
 FETCH FIRST 1 ROW ONLY)
-UNION 
+UNION
 (SELECT 'Mayores Ingresos' AS tipo, fecha, SUM(costo) AS valor
 FROM consumos
 GROUP BY fecha
 ORDER BY SUM(costo) DESC
 FETCH FIRST 1 ROW ONLY)
-UNION 
-(SELECT 'Menor Demanda' AS tipo, fecha_reserva AS fecha, COUNT(*) AS valor 
-FROM reservas 
-GROUP BY fecha_reserva 
-ORDER BY COUNT(*) ASC 
+UNION
+(SELECT 'Menor Demanda' AS tipo, fecha_reserva AS fecha, COUNT(*) AS valor
+FROM reservas
+GROUP BY fecha_reserva
+ORDER BY COUNT(*) ASC
 FETCH FIRST 1 ROW ONLY);
+
+-- REQ. 7
+SELECT u.nombre AS nombre_cliente,  res.inicio AS fecha_consumo,  COUNT(*) AS veces_consumido 
+FROM usuarios u
+JOIN registros reg ON u.numDocumento = reg.docpersona 
+JOIN reservas res ON reg.idreserva = res.idreserva
+JOIN reserva_servicios ON res.idreserva = reserva_servicios.id
+LEFT JOIN servicios s ON reserva_servicios.id_spa = s.id OR reserva_servicios.id_salon = s.id 
+WHERE res.inicio BETWEEN ADD_MONTHS(CURRENT_DATE, -12) AND CURRENT_DATE  AND s.id IS NULL 
+GROUP BY u.nombre, res.inicio
+ORDER BY u.nombre ASC;
 
 -- REQ. 8
 SELECT s.id, s.nombre, s.capacidad, s.tipo_cobro, s.cobro
 FROM servicios s
 WHERE s.id NOT IN (
-    SELECT rs.id_spa
+    SELECT rs.id_salon
     FROM reserva_servicios rs
     WHERE rs.horario >= ADD_MONTHS(SYSDATE, -12) 
-    GROUP BY rs.id_spa
+    GROUP BY rs.id_salon
     HAVING COUNT(DISTINCT TO_CHAR(rs.horario, 'IW')) >= 3);
 
+-- REQ. 9
+select usuarios.id, count(consumos.id_servicio) from usuarios
+inner join consumos on consumos.id_usuario = usuarios.id
+where consumos.fecha between add_months(current_date, -12) and current_date and consumos.id_servicio = 1
+having count(consumos.id_servicio)>0
+group by usuarios.id;
+
+-- REQ. 10
+select usuarios.id, count(consumos.id_servicio) from usuarios
+inner join consumos on consumos.id_usuario = usuarios.id
+where consumos.fecha between add_months(current_date, -12) and current_date and consumos.id_servicio = 1
+having count(consumos.id_servicio)=0
+group by usuarios.id;
 
 -- REQ. 11
 select

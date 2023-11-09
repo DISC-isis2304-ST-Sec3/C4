@@ -43,13 +43,35 @@ public class CargaDatos {
     List<String> salones = new LinkedList<>();
     List<String> hoteles = new LinkedList<>();
     List<String> habitaciones = new LinkedList<>();
+    List<String> usuarios = new LinkedList<>();
     List<String> reservasServicio = new LinkedList<>();
     List<String> reservasServicioSalon = new LinkedList<>();
     List<List<String>> cuentas = new LinkedList<>();
     List<List<String>> reservas = new LinkedList<>();
     List<List<String>> consumos = new LinkedList<>();
-    
-     
+
+    long primerUsuario = idGenerator.get();
+    long ultimoUsuario = primerUsuario;
+
+    for (int i = 0; i < 400; i++) {
+      ultimoUsuario = idGenerator.getAndIncrement();
+
+      usuarios.add(String.format(
+          "(%d, '%s', %d, '%s', '%s')",
+          ultimoUsuario,
+          faker.name().name().replace("'", ""),
+          faker.number().numberBetween(100000, 999999),
+          faker.name().username(),
+          faker.internet().password()
+      ));
+    }
+
+    String queryUsuarios = String.format("INSERT ALL INTO USUARIOS (ID, NOMBRE, NUMDOCUMENTO, NICKNAME, CONTRASEÑA) values %s SELECT * FROM DUAL", String.join(" INTO USUARIOS (ID, NOMBRE, NUMDOCUMENTO, NICKNAME, CONTRASEÑA) values ", usuarios));
+    Query sqlUsuarios = entityManager.createNativeQuery(queryUsuarios);
+    sqlUsuarios.executeUpdate();
+    System.out.println("USUARIOS");
+
+    usuarios = null;
 
     long primerServicio = idGenerator.get();
     long ultimoServicio = primerServicio;
@@ -104,18 +126,17 @@ public class CargaDatos {
         "(%d,  TO_TIMESTAMP('%s', '"+formato+"'), %d, %d)",
         idGenerator.getAndIncrement(),
         dateFormat.format(faker.date().between(calendar.getTime(), topCalendar.getTime())),
-        faker.number().numberBetween(primerSalon, ultimoSalon),
-        faker.number().numberBetween(primerServicio, ultimoServicio)
+        faker.number().numberBetween(60, 180),
+        faker.number().numberBetween(primerSalon, ultimoSalon)
       ));
     }
 
-    String queryServicioSalon = String.format("INSERT INTO reserva_servicios (id, horario, duracion, id_salon) values %s SELECT * FROM DUAL", String.join(" INTO reserva_servicios (id, horario, duracion, id_salon) values ", reservasServicioSalon));
+    String queryServicioSalon = String.format("INSERT ALL INTO reserva_servicios (id, horario, duracion, id_salon) values %s SELECT * FROM DUAL", String.join(" INTO reserva_servicios (id, horario, duracion, id_salon) values ", reservasServicioSalon));
     Query sqlServiciosalon = entityManager.createNativeQuery(queryServicioSalon);
     sqlServiciosalon.executeUpdate();
     System.out.println("ServiciosSalon");
 
-    reservasServicioSalon = null;;
-
+    reservasServicioSalon = null;
   
     for (int i = 0; i < 50; i++) {
       long hotel = idGenerator.getAndIncrement();
@@ -175,18 +196,15 @@ public class CargaDatos {
 
           for (int l = 0; l < faker.number().numberBetween(1, 5); l++) {
             consumosHabitacion.add(String.format(
-                "(%d, TO_TIMESTAMP('%s', '"+formato+"'), %d, %d, %d)",
+                "(%d, TO_TIMESTAMP('%s', '"+formato+"'), %d, %d, %d, %d)",
                 idGenerator.getAndIncrement(),
                 dateFormat.format(faker.date().between(fecha_inicio, fecha_fin)),
                 faker.number().numberBetween(0, 1000000),
                 reserva,
-                faker.number().numberBetween(primerServicio, ultimoServicio)
+                faker.number().numberBetween(primerServicio, ultimoServicio),
+                faker.number().numberBetween(primerUsuario, ultimoUsuario)
             ));
           }
-
-          
-
-          
         }
         cuentas.add(cuentasHabitacion);
         reservas.add(reservasHabitacion);
@@ -219,7 +237,7 @@ public class CargaDatos {
     System.out.println("RESERVAS");
 
     for (List<String> consumosHab: consumos) {
-      String queryConsumos = String.format("INSERT ALL INTO CONSUMOS (ID, FECHA, COSTO, ID_RESERVA, ID_SERVICIO) values %s SELECT * FROM DUAL", String.join(" INTO CONSUMOS (ID, FECHA, COSTO, ID_RESERVA, ID_SERVICIO) values ", consumosHab));
+      String queryConsumos = String.format("INSERT ALL INTO CONSUMOS (ID, FECHA, COSTO, ID_RESERVA, ID_SERVICIO, ID_USUARIO) values %s SELECT * FROM DUAL", String.join(" INTO CONSUMOS (ID, FECHA, COSTO, ID_RESERVA, ID_SERVICIO, ID_USUARIO) values ", consumosHab));
       Query sqlConsumos = entityManager.createNativeQuery(queryConsumos);
       sqlConsumos.executeUpdate();
     }

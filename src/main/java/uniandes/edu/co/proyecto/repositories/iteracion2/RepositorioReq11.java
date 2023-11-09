@@ -9,7 +9,7 @@ import uniandes.edu.co.proyecto.entities.especiales.Funcionamiento;
 import java.util.List;
 
 @Repository
-public interface RepositorioReq11 extends JpaRepository<Funcionamiento, Long> {
+public interface RepositorioReq11 extends JpaRepository<Funcionamiento, Integer> {
   @Query(
       value = "select " +
           "c.SEMANA, " +
