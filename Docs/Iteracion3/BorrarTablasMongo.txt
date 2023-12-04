@@ -1,0 +1,16 @@
+db.consumos.drop();
+db.cuenta.drop();
+db.gym.drop();
+db.habitacion.drop();
+db.hotel.drop();
+db.piscina.drop();
+db.producto.drop();
+db.registro.drop();
+db.reserva.drop();
+db.reservaServicio.drop();
+db.salones.drop();
+db.servicio.drop();
+db.spa.drop();
+db.tienda.drop();
+db.usuario.drop();
+db.administrativo.drop();

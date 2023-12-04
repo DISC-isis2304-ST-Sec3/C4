@@ -1,0 +1,216 @@
+//REQUERIMIENTOS 
+
+////////////////////////////////////RF1////////////////////////////////
+//Crear/Actualizar el tipo de una Habitación:
+db.habitacion.updateOne(
+  { idHabitacion: 1 },
+  { $set: { tipo: "NuevoTipo" } },
+  { upsert: true } 
+);
+
+//Consultar Habitaciones por Tipo:
+db.habitacion.find({ tipo: "NuevoTipo" });
+
+//Borrar el tipo de una Habitación:
+db.habitacion.updateOne(
+    { idHabitacion: 1 },
+    { $unset: { tipo: "" } }
+  );
+  
+////////////////////////////////////RF2////////////////////////////////
+//Crear (Insertar) una Habitación:
+db.habitacion.insertOne({
+    idHabitacion: 1,
+    tipo: "Ejemplo",
+    capacidad: 2,
+    costo: 100,
+    idHotel: 1,
+    dotaciones: [
+      { idDotacion: 1, nombre: "Wifi", cantidad: 1, costoAdicional: 0 },
+    ]
+  });
+
+//Consultar Habitación
+db.habitacion.findOne({ idHabitacion: 1 });
+
+//Actualizar Habitación
+db.habitacion.updateOne(
+  { idHabitacion: 1 },
+  {
+    $set: {
+      tipo: "NuevoTipo",
+      capacidad: 3,
+      costo: 120,
+      "dotaciones.0.cantidad": 2, 
+    }
+  }
+);
+ 
+//Borrar Habitacion
+db.habitacion.deleteOne({ idHabitacion: 1 });
+
+
+////////////////////////////////////RF3////////////////////////////////
+//Registrar (Insertar) un Servicio:
+db.spa.insertOne({
+  id: 1,
+  costo: 50,
+  descripcion: "Paquete de relajación con masaje y sauna"
+});
+
+db.piscina.insertOne({
+  idPiscina: 1,
+  profundidad: 2,
+  id_servicio: 1 // Asociado al servicio de piscina
+});
+db.tienda.insertOne({
+  id: 1,
+  nombre: "Tienda de regalos",
+  capacidad: 50,
+  tipo: "Souvenirs"
+});
+db.gym.insertOne({
+  idGym: 1,
+  id_servicio: 5, // Asociado al servicio de gimnasio
+  equipos: [
+    { idEquipo: 1, tipoEquipo: "Caminadora", costoAdicional: 10 },
+    // Otros equipos...
+  ]
+});
+
+//Consultar Servicio
+db.spa.find({ id: 1 });
+
+db.piscina.find({ idPiscina: 1 });
+
+db.tienda.find({ id: 1 });
+
+db.gym.find({ idGym: 1 });
+
+//Actualizar Servicio
+db.spa.updateOne(
+  { id: 1 },
+  { $set: { costo: 60, descripcion: "Nuevo paquete de spa" } }
+);
+
+db.piscina.updateOne(
+  { idPiscina: 1 },
+  { $set: { profundidad: 3 } }
+);
+
+db.tienda.updateOne(
+  { id: 1 },
+  { $set: { capacidad: 60 } }
+);
+
+db.gym.updateOne(
+  { idGym: 1 },
+  { $set: { "equipos.0.costoAdicional": 15 } }
+);
+
+//Borrar Servicio
+db.spa.deleteOne({ id: 1 });
+
+db.piscina.deleteOne({ idPiscina: 1 });
+
+db.tienda.deleteOne({ id: 1 });
+
+db.gym.deleteOne({ idGym: 1 });
+
+
+////////////////////////////////////RF4////////////////////////////////
+//Registrar (Insertar) una Reserva
+db.reserva.insertOne({
+  id_reserva: 1,
+  fechareserva: new Date(),
+  inicio: new Date(),
+  fin: new Date(),
+  cantidadPersonas: 2,
+  idPagado: 1,
+  idHabitacion: 101
+});
+
+//Consultar Reserva
+db.reserva.find({ id_reserva: 1 });
+
+//Actualizar Reserva
+db.reserva.updateOne(
+  { id_reserva: 1 },
+  { $set: { cantidadPersonas: 3 } }
+);
+
+//Borrar Reserva
+db.reserva.deleteOne({ id_reserva: 1 });
+
+////////////////////////////////////RF5////////////////////////////////
+// Crear o actualizar el inicio de la reserva con id_reserva 1
+db.reserva.updateOne(
+  { id_reserva: 1 },
+  { $set: { inicio: new Date() } },
+  { upsert: true } 
+);
+
+// Consultar reservas con una fecha de inicio específica (por ejemplo, hoy)
+const fechaActual = new Date();
+db.reserva.find({ inicio: { $gte: fechaActual.setHours(0, 0, 0, 0),
+   $lt: fechaActual.setHours(23, 59, 59, 999) } });
+
+// Actualizar la fecha de inicio de la reserva con id_reserva 1
+db.reserva.updateOne(
+  { id_reserva: 1 },
+  { $set: { inicio: new Date() } }
+);
+// Borrar el inicio de la reserva con id_reserva 1
+db.reserva.updateOne(
+  { id_reserva: 1 },
+  { $unset: { inicio: "" } }
+);
+////////////////////////////////////RF6////////////////////////////////
+//Registrar (Insertar) un Consumo
+db.consumos.insertOne({
+  id: 1,
+  fecha: new Date(),
+  costo: 20,
+  id_reserva: 1,
+  id_reservaServicio: 1,
+  id_producto: 1,
+  id_servicio: 1
+});
+
+//Consultar Consumo
+db.consumos.find({ id: 1 });
+
+//Actualizar Consumo
+db.consumos.updateOne(
+  { id: 1 },
+  { $set: { costo: 25 } }
+);
+
+//Borrar Consumo
+db.consumos.deleteOne({ id: 1 });
+
+////////////////////////////////////RF7////////////////////////////////
+//Crear/Actualizar fin de una Reserva
+db.reserva.updateOne(
+  { id_reserva: 1 },
+  { $set: { fin: new Date() } },
+  { upsert: true } // upsert permite insertar si no se encuentra
+);
+// Consultar una fecha de fin específica (por ejemplo, hoy)
+const fechaActual = new Date();
+db.reserva.find({ fin: { $gte: fechaActual.setHours(0, 0, 0, 0),
+   $lt: fechaActual.setHours(23, 59, 59, 999) } });
+
+// Actualizar la fecha de fin de la reserva con id_reserva 1
+db.reserva.updateOne(
+  { id_reserva: 1 },
+  { $set: { fin: new Date() } }
+);
+
+// Borrar fin de la reserva con id_reserva 1
+db.reserva.updateOne(
+  { id_reserva: 1 },
+  { $unset: { fin: "" } }
+);
+
+

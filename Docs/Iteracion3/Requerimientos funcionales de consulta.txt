@@ -1,0 +1,268 @@
+//REQUERIMIENTOS FUNCIONALES DE CONSULTA
+
+////////////////////////////////////RFC1////////////////////////////////
+db.consumos.aggregate([
+  {
+    $lookup: {
+      from: "reservaServicio",
+      localField: "id_reservaServicio",
+      foreignField: "id",
+      as: "reservaservicio"
+    }
+  },
+  {
+    $lookup: {
+      from: "habitacion",
+      localField: "reservaservicio.id_habitacion",
+      foreignField: "idhabitacion",
+      as: "habitacion"
+    }
+  },
+  {
+    $match: {
+      "fecha": {
+        $gte: ISODate("2022-12-03"),
+        $lt: ISODate("2023-12-03")
+      }
+    }
+  },
+  {
+    $group: {
+      _id: "$habitacion.idHabitacion",
+      total: {
+        $sum: "$costo"
+      }
+    }
+  }
+])
+
+
+////////////////////////////////////RFC2////////////////////////////////
+// Fecha actual
+var fechaActual = new Date();
+
+// Fecha de inicio del último año corrido
+var fechaInicioUltimoAnio = new Date();
+fechaInicioUltimoAnio.setFullYear(fechaActual.getFullYear() - 1);
+
+// Agregación para calcular el índice de ocupación
+var resultado = db.reserva.aggregate([
+  {
+    $match: {
+      "inicio": { $gte: fechaInicioUltimoAnio, $lt: fechaActual }
+    }
+  },
+  {
+    $group: {
+      _id: "$idHabitacion",
+      totalNoches: { $sum: { $divide: [{ $subtract: ["$fin", "$inicio"] }, 1000 * 60 * 60 * 24] } }
+    }
+  },
+  {
+    $lookup: {
+      from: "habitacion",
+      localField: "_id",
+      foreignField: "idHabitacion",
+      as: "habitacion"
+    }
+  },
+  {
+    $unwind: "$habitacion"
+  },
+  {
+    $project: {
+      _id: 0,
+      "Habitacion": "$_id",
+      "Tipo": "$habitacion.tipo",
+      "Capacidad": "$habitacion.capacidad",
+      "Costo": "$habitacion.costo",
+      "IndiceOcupacion": { $multiply: [{ $divide: ["$totalNoches", { $multiply: ["$habitacion.capacidad", 365] }] }, 100] }
+    }
+  }
+]);
+
+// Mostrar resultados
+resultado.forEach(function (habitacion) {
+  printjson(habitacion);
+});
+
+
+////////////////////////////////////RFC3////////////////////////////////
+// Variables para el rango de fechas y el nombre del hotel
+var fechaInicio = ISODate("2023-01-01");
+var fechaFin = ISODate("2023-12-31");
+var nombreHotel = "HOTELANDES";
+
+// ID del cliente que deseas consultar
+var idCliente = 123; // Reemplaza con el ID del cliente deseado
+
+// Consulta de consumos en el hotel específico, para el cliente y en el rango de fechas
+db.consumos.aggregate([
+  {
+    $match: {
+      "fecha": { $gte: fechaInicio, $lte: fechaFin },
+      "id_reservaServicio": {
+        $in: db.reservaServicio.find({
+          "id_spa": { $in: db.spa.find({ "idHotel": { $in: db.hotel.find({ "nombre": nombreHotel }).map(h => h.idHotel) } }).map(s => s.id) },
+          "id_salon": { $in: db.salones.find({ "equipos.tipoEquipo": "Silla de Masaje" }).map(s => s.idSalon) }
+        }).map(rs => rs.id)
+      }
+    }
+  },
+  {
+    $lookup: {
+      from: "reservaServicio",
+      localField: "id_reservaServicio",
+      foreignField: "id",
+      as: "reservaServicio"
+    }
+  },
+  {
+    $lookup: {
+      from: "reserva",
+      localField: "id_reserva",
+      foreignField: "id_reserva",
+      as: "reserva"
+    }
+  },
+  {
+    $lookup: {
+      from: "producto",
+      localField: "id_producto",
+      foreignField: "id_producto",
+      as: "producto"
+    }
+  },
+  {
+    $lookup: {
+      from: "servicio",
+      localField: "id_servicio",
+      foreignField: "id",
+      as: "servicio"
+    }
+  },
+  {
+    $lookup: {
+      from: "habitacion",
+      localField: "reserva.idHabitacion",
+      foreignField: "idHabitacion",
+      as: "habitacion"
+    }
+  },
+  {
+    $lookup: {
+      from: "hotel",
+      localField: "habitacion.idHotel",
+      foreignField: "idHotel",
+      as: "hotel"
+    }
+  },
+  {
+    $match: {
+      "reserva.idUsuario": idCliente,
+      "hotel.nombre": nombreHotel
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      "Fecha": "$fecha",
+      "Servicio": "$servicio.nombre",
+      "Producto": "$producto.nombre",
+      "Costo": "$costo"
+    }
+  },
+  {
+    $sort: {
+      "Fecha": 1
+    }
+  }
+]);
+
+
+////////////////////////////////////RFC4////////////////////////////////
+// Variables para el rango de fechas y el nombre del hotel
+var fechaInicio = ISODate("2022-01-01");
+var fechaFin = ISODate("2022-12-31");
+var nombreHotel = "HOTELANDES 4";
+
+// Consulta de consumos en el hotel específico y en el rango de fechas
+db.consumos.aggregate([
+  {
+    $match: {
+      "fecha": { $gte: fechaInicio, $lte: fechaFin }
+    }
+  },
+  {
+    $lookup: {
+      from: "reservaServicio",
+      localField: "id_reservaServicio",
+      foreignField: "id",
+      as: "reservaServicio"
+    }
+  },
+  {
+    $lookup: {
+      from: "servicio",
+      localField: "reservaServicio.id_servicio",
+      foreignField: "id",
+      as: "servicio"
+    }
+  },
+  {
+    $lookup: {
+      from: "reserva",
+      localField: "id_reserva",
+      foreignField: "id_reserva",
+      as: "reserva"
+    }
+  },
+  {
+    $lookup: {
+      from: "habitacion",
+      localField: "reserva.idHabitacion",
+      foreignField: "idHabitacion",
+      as: "habitacion"
+    }
+  },
+  {
+    $lookup: {
+      from: "hotel",
+      localField: "habitacion.idHotel",
+      foreignField: "idHotel",
+      as: "hotel"
+    }
+  },
+  {
+    $match: {
+      "hotel.nombre": nombreHotel
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      "Cliente": "$reserva.idUsuario",
+      "Fecha": "$fecha",
+      "Servicio": "$servicio.nombre",
+      "Veces Utilizado": 1
+    }
+  },
+  {
+    $group: {
+      _id: {
+        Cliente: "$Cliente",
+        Servicio: "$Servicio"
+      },
+      "Fecha": { $first: "$Fecha" },
+      "Veces Utilizado": { $sum: 1 }
+    }
+  },
+  {
+    $sort: {
+      // Aquí puedes especificar el criterio de clasificación deseado
+      "_id.Cliente": 1,
+      "Fecha": 1,
+      "Veces Utilizado": -1
+    }
+  }
+]);
